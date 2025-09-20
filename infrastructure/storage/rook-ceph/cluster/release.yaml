@@ -12,7 +12,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: rook-ceph-cluster
+        name: rook-ceph
       version: 1.18.2
   values:
     cephClusterSpec:

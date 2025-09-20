@@ -6,6 +6,8 @@ metadata:
   namespace: networking
 spec:
   interval: 1m0s
+  dependsOn:
+    - name: metallb
   sourceRef:
     kind: GitRepository
     name: flux-system

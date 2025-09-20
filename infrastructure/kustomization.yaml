@@ -1,8 +1,14 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ./monitoring/node-exporter/ks.yaml
-- ./networking/ingress-nginx/ks.yaml
-- ./networking/metallb/ks.yaml
-- ./secrets/external-secrets/ks.yaml
-- ./secrets/onepassword/ks.yaml
+  - ./monitoring/namespace.yaml
+  - ./monitoring/node-exporter/ks.yaml
+
+  - ./networking/namespace.yaml
+  - ./networking/ingress-nginx/ks.yaml
+  - ./networking/metallb/ks.yaml
+
+  - ./secrets/namespace.yaml
+  - ./secrets/external-secrets/ks.yaml
+  - ./secrets/onepassword/ks.yaml

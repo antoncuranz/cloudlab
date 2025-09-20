@@ -22,3 +22,4 @@ spec:
       mgr:
         allowMultiplePerNode: true
         count: 1
+    operatorNamespace: storage

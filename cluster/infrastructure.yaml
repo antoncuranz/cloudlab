@@ -9,7 +9,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kustomization.yaml
+  path: ./infrastructure
   prune: true
   wait: true
   timeout: 5m0s

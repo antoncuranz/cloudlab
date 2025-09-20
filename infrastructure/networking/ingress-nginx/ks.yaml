@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-nginx
+  namespace: networking
+spec:
+  interval: 1m0s
+  dependsOn:
+    - name: metallb
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/networking/ingress-nginx/app
+  prune: true
+  wait: true
+  timeout: 5m0s

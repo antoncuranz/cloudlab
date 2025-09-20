@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: node-exporter
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: cloudlab.cura.nz
+      http:
+        paths:
+          - backend:
+              service:
+                name: node-exporter-prometheus-node-exporter
+                port:
+                  number: 9100
+            path: /
+            pathType: Prefix

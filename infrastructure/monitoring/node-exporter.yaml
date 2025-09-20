@@ -1,0 +1,25 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: prometheus-node-exporter
+  namespace: monitoring
+spec:
+  interval: 1m0s
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus-node-exporter
+  namespace: monitoring
+spec:
+  interval: 1m0s
+  chart:
+    spec:
+      chart: prometheus-node-exporter
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-node-exporter
+      version: 4.48.0

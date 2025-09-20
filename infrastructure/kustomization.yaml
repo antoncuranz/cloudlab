@@ -13,3 +13,7 @@ resources:
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/ks.yaml
   - ./secrets/onepassword/ks.yaml
+
+  - ./storage/namespace.yaml
+  - ./storage/rook-ceph/app.yaml
+  - ./storage/rook-ceph/cluster.yaml

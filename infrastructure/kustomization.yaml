@@ -7,7 +7,8 @@ resources:
 
   - ./networking/namespace.yaml
   - ./networking/ingress-nginx/ks.yaml
-  - ./networking/metallb/ks.yaml
+  - ./networking/metallb/app.yaml
+  - ./networking/metallb/configs.yaml
 
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/ks.yaml

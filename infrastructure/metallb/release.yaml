@@ -14,10 +14,10 @@ spec:
         kind: HelmRepository
         name: metallb
       version: 0.15.2
-    values:
-      controller:
-        service:
-          annotations:
-            metallb.universe.tf/allow-shared-ip: default
-        metrics:
-          enabled: false
+  values:
+    controller:
+      service:
+        annotations:
+          metallb.universe.tf/allow-shared-ip: default
+      metrics:
+        enabled: false

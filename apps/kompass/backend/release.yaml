@@ -11,11 +11,11 @@ spec:
     name: backend
   values:
     controllers:
-      main:
+      kompass-backend:
         strategy: RollingUpdate
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/antoncuranz/kompa.ss/backend
               tag: latest
@@ -32,7 +32,7 @@ spec:
                   name: kompass-secrets
 
     service:
-      main:
+      app:
         ports:
           http:
             port: 8080

@@ -34,7 +34,7 @@ spec:
             port: 3000
 
     ingress:
-      main:
+      app:
         enabled: true
         className: nginx
         annotations:
@@ -45,7 +45,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  name: app
                   port: http
         tls:
           - secretName: kompass-frontend-tls-certificate

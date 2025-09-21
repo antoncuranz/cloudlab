@@ -19,6 +19,6 @@ spec:
             path: /
             pathType: Prefix
   tls:
-    - secretName: kompass-frontend-tls-certificate
+    - secretName: node-exporter-tls-certificate
       hosts:
         - *host

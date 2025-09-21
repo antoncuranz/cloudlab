@@ -10,7 +10,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/kompass/dbvendo
+  path: ./apps/kompass/dbvendo
   prune: true
   wait: true
   timeout: 5m0s

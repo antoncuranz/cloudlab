@@ -5,7 +5,10 @@ metadata:
   name: dbvendo
   namespace: kompass
 spec:
-  interval: 1h
-  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
   ref:
     tag: 4.3.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template

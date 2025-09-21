@@ -11,6 +11,7 @@ resources:
   - ./networking/metallb/configs.yaml
   - ./networking/cert-manager/app.yaml
   - ./networking/cert-manager/configs.yaml
+  - ./networking/external-dns/app.yaml
 
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/app.yaml

@@ -9,6 +9,8 @@ resources:
   - ./networking/ingress-nginx/app.yaml
   - ./networking/metallb/app.yaml
   - ./networking/metallb/configs.yaml
+  - ./networking/cert-manager/app.yaml
+  - ./networking/cert-manager/configs.yaml
 
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/app.yaml

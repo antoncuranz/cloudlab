@@ -10,6 +10,8 @@ spec:
     - name: cloudnative-pg
     - name: external-secrets
       namespace: secrets
+    - name: democratic-csi
+      namespace: storage
   sourceRef:
     kind: GitRepository
     name: flux-system

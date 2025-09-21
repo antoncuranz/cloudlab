@@ -14,3 +14,17 @@ spec:
         kind: HelmRepository
         name: oauth2-proxy
       version: 7.18.0
+  values:
+    ingress:
+      enabled: true
+      className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "cloudlab.cura.nz"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+      hosts:
+        - &host "oauth2.cura.nz"
+      tls:
+        - secretName: oauth2-tls-certificate
+          hosts:
+            - *host

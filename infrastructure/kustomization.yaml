@@ -14,6 +14,9 @@ resources:
   - ./secrets/external-secrets/app.yaml
   - ./secrets/onepassword/app.yaml
 
+  - ./storage/namespace.yaml
+  - ./storage/democratic-csi/app.yaml
+
   - ./database/namespace.yaml
   - ./database/cloudnative-pg/app.yaml
   - ./database/cloudnative-pg/cluster.yaml

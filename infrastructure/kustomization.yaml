@@ -14,6 +14,7 @@ resources:
   - ./networking/external-dns/app.yaml
 
   - ./authentication/namespace.yaml
+  - ./authentication/pocket-id/app.yaml
 
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/app.yaml

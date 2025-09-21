@@ -3,17 +3,18 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./monitoring/namespace.yaml
-  - ./monitoring/node-exporter/ks.yaml
+  - ./monitoring/node-exporter/app.yaml
 
   - ./networking/namespace.yaml
-  - ./networking/ingress-nginx/ks.yaml
+  - ./networking/ingress-nginx/app.yaml
   - ./networking/metallb/app.yaml
   - ./networking/metallb/configs.yaml
 
   - ./secrets/namespace.yaml
-  - ./secrets/external-secrets/ks.yaml
-  - ./secrets/onepassword/ks.yaml
+  - ./secrets/external-secrets/app.yaml
+  - ./secrets/onepassword/app.yaml
 
-#  - ./storage/namespace.yaml
-#  - ./storage/rook-ceph/app.yaml
-#  - ./storage/rook-ceph/cluster.yaml
+  - ./database/namespace.yaml
+  - ./database/cloudnative-pg/app.yaml
+  - ./database/cloudnative-pg/cluster.yaml
+  - ./database/ext-postgres-operator/app.yaml

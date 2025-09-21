@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kompass-backend
+  namespace: kompass
+spec:
+  interval: 1m0s
+  chartRef:
+    kind: OCIRepository
+    name: backend
+  values:
+    controllers:
+      main:
+        strategy: RollingUpdate
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/antoncuranz/kompa.ss/backend
+              tag: latest
+              pullPolicy: Always
+            env:
+              PG_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-kompass-user
+                    key: POSTGRES_URL
+              DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
+            envFrom:
+              - secretRef:
+                  name: kompass-secrets
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8080

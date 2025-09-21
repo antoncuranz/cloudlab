@@ -3,10 +3,12 @@ kind: Ingress
 metadata:
   name: node-exporter
   namespace: monitoring
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
-    - host: cloudlab.cura.nz
+    - host: &host "cloudlab.cura.nz"
       http:
         paths:
           - backend:
@@ -16,3 +18,7 @@ spec:
                   number: 9100
             path: /
             pathType: Prefix
+  tls:
+    - secretName: kompass-frontend-tls-certificate
+      hosts:
+        - *host

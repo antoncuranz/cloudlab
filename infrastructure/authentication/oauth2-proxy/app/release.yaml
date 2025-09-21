@@ -15,6 +15,12 @@ spec:
         name: oauth2-proxy
       version: 7.18.0
   values:
+    config:
+      existingSecret: oauth2-secrets
+    extraArgs:
+      provider: oidc
+      oidc-issuer-url: https://auth.cura.nz
+      redirect-url: https://oauth2.cura.nz/oauth2/callback
     ingress:
       enabled: true
       className: nginx

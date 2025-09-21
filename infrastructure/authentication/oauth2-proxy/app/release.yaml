@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: authentication
+spec:
+  interval: 1m0s
+  chart:
+    spec:
+      chart: oauth2-proxy
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+      version: 7.18.0

@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pocket-id
+  namespace: authentication
+spec:
+  interval: 1m0s
+  chartRef:
+    kind: OCIRepository
+    name: pocket-id
+  values:
+    controllers:
+      main:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/pocket-id/pocket-id
+              tag: v1.10.0
+
+            env:
+              APP_URL: https://auth.cura.nz
+              TRUST_PROXY: true
+              DB_PROVIDER: postgres
+              DB_CONNECTION_STRING:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-pocket-id-user
+                    key: POSTGRES_URL
+              KEYS_STORAGE: database
+            envFrom:
+              - secretRef:
+                  name: pocket-id-secrets
+
+    service:
+      app:
+        ports:
+          http:
+            port: 1411
+
+    ingress:
+      app:
+        enabled: true
+        className: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "cloudlab.cura.nz"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: &host "auth.cura.nz"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - secretName: pocket-id-tls-certificate
+            hosts:
+              - *host
+
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 1Gi
+
+      var:
+        type: emptyDir
+        sizeLimit: 1Gi

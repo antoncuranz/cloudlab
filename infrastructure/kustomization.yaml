@@ -13,6 +13,8 @@ resources:
   - ./networking/cert-manager/configs.yaml
   - ./networking/external-dns/app.yaml
 
+  - ./authentication/namespace.yaml
+
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/app.yaml
   - ./secrets/onepassword/app.yaml

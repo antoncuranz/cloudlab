@@ -1,0 +1,19 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: pocket-id-db
+  namespace: authentication
+spec:
+  database: pocket-id
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: pocket-id-user
+  namespace: authentication
+spec:
+  role: pocket-id
+  database: pocket-id-db
+  secretName: database
+  privileges: OWNER

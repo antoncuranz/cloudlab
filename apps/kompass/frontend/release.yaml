@@ -27,8 +27,8 @@ spec:
                     name: kompass-secrets
                     key: MAPBOX_ACCESS_TOKEN
 
-      service:
-        app:
-          ports:
-            http:
-              port: 3000
+    service:
+      app:
+        ports:
+          http:
+            port: 3000

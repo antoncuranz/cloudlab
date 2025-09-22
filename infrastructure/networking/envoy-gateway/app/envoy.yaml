@@ -21,6 +21,9 @@ spec:
       hostname: test-1.kompa.ss
       protocol: HTTPS
       port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         certificateRefs:
           - kind: Secret
@@ -29,6 +32,9 @@ spec:
       hostname: test-2.kompa.ss
       protocol: HTTPS
       port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         certificateRefs:
           - kind: Secret

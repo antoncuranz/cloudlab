@@ -24,7 +24,7 @@ spec:
       port: 443
       allowedRoutes:
         namespaces:
-          from: kompass
+          from: All
       tls:
         certificateRefs:
           - kind: Secret
@@ -35,7 +35,7 @@ spec:
       port: 443
       allowedRoutes:
         namespaces:
-          from: authentication
+          from: All
       tls:
         certificateRefs:
           - kind: Secret

@@ -15,5 +15,10 @@ spec:
     clientID: kompass
     clientSecret:
       name: kompass-secrets
+    scopes:
+      - openid
+      - profile
+    cookieNames:
+      idToken: IdToken
     redirectURL: https://kompa.ss/oauth2/callback
     logoutPath: /logout

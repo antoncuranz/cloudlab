@@ -6,6 +6,9 @@ metadata:
   namespace: authentication
 spec:
   interval: 1m0s
+  dependsOn:
+    - name: onepassword
+      namespace: secrets
   sourceRef:
     kind: GitRepository
     name: flux-system

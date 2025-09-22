@@ -7,7 +7,7 @@ resources:
   - ./monitoring/metrics-server/app.yaml
 
   - ./networking/namespace.yaml
-  - ./networking/ingress-nginx/app.yaml
+  - ./networking/envoy-gateway/app.yaml
   - ./networking/metallb/app.yaml
   - ./networking/metallb/configs.yaml
   - ./networking/cert-manager/app.yaml

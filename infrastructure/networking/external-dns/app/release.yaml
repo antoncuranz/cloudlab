@@ -25,3 +25,9 @@ spec:
             key: api-token
     extraArgs:
       - --cloudflare-proxied
+    sources:
+      - gateway-httproute
+      - gateway-grpcroute
+      - gateway-tcproute
+      - gateway-tlsroute
+      - gateway-udproute

@@ -38,24 +38,13 @@ spec:
           http:
             port: 1411
 
-    ingress:
+    route:
       app:
-        enabled: true
-        className: nginx
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "cloudlab.cura.nz"
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-        hosts:
-          - host: &host "auth.cura.nz"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - secretName: pocket-id-tls-certificate
-            hosts:
-              - *host
+        hostnames:
+          - auth.cura.nz
+        parentRefs:
+          - name: envoy-gateway
+            namespace: networking
 
     persistence:
       data:

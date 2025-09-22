@@ -15,7 +15,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  gatewayClassName: envoy
+  gatewayClassName: envoy-gateway
   listeners:
     - name: test-1
       hostname: test-1.kompa.ss

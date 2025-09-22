@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./monitoring/namespace.yaml
   - ./monitoring/node-exporter/app.yaml
+  - ./monitoring/metrics-server/app.yaml
 
   - ./networking/namespace.yaml
   - ./networking/ingress-nginx/app.yaml

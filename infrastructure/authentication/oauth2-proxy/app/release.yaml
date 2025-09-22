@@ -21,6 +21,9 @@ spec:
       provider: oidc
       oidc-issuer-url: https://auth.cura.nz
       redirect-url: https://oauth2.cura.nz/oauth2/callback
+      insecure-oidc-allow-unverified-email: true
+      reverse-proxy: true
+      upstream: http://google.us
     ingress:
       enabled: true
       className: nginx

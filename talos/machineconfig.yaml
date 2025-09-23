@@ -1,0 +1,140 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  type: controlplane
+  token: op://Cloudlab/talos/MACHINE_TOKEN
+
+  ca:
+    crt: op://Cloudlab/talos/MACHINE_CA_CRT
+    key: op://Cloudlab/talos/MACHINE_CA_KEY
+
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v1.34.0
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
+    extraConfig:
+      memorySwap:
+        swapBehavior: LimitedSwap
+
+    extraArgs:
+      read-only-port: 10255
+
+  network:
+    interfaces:
+      - interface: ens3
+        addresses:
+          - {{ op://Cloudlab/talos/CP1_IPV4 }}/22
+          - {{ op://Cloudlab/talos/CP1_IPV6 }}
+        routes:
+          - network: 0.0.0.0/0
+            gateway: {{ op://Cloudlab/talos/CP1_GATEWAY }}
+
+    nameservers:
+      - 9.9.9.9
+      - 149.112.112.112
+
+  install:
+    disk: /dev/vda
+    image: ghcr.io/siderolabs/installer:v1.11.1
+    wipe: false
+
+  registries: { }
+
+  features:
+    rbac: true
+    stableHostname: true
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+
+    kubePrism:
+      enabled: true
+      port: 7445
+
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: true
+
+  time:
+    servers:
+      - pool.ntp.org
+
+cluster:
+  id: op://Cloudlab/talos/CLUSTER_ID
+  secret: op://Cloudlab/talos/CLUSTER_SECRET
+  token: op://Cloudlab/talos/CLUSTER_TOKEN
+  ca:
+    crt: op://Cloudlab/talos/CLUSTER_CA_CRT
+    key: op://Cloudlab/talos/CLUSTER_CA_KEY
+  aggregatorCA:
+    crt: op://Cloudlab/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://Cloudlab/talos/CLUSTER_AGGREGATORCA_KEY
+  serviceAccount:
+    key: op://Cloudlab/talos/CLUSTER_SERVICEACCOUNT_KEY
+  etcd:
+    ca:
+      crt: op://Cloudlab/talos/CLUSTER_ETCD_CA_CRT
+      key: op://Cloudlab/talos/CLUSTER_ETCD_CA_KEY
+  secretboxEncryptionSecret: op://Cloudlab/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+
+  clusterName: cloudlab
+  controlPlane:
+    endpoint: https://{{ op://Cloudlab/talos/CP1_IPV4 }}:6443
+
+  network:
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.244.0.0/16
+    serviceSubnets:
+      - 10.96.0.0/12
+
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:v1.34.0
+    certSANs:
+      - {{ op://Cloudlab/talos/CP1_IPV4 }}
+    disablePodSecurityPolicy: true
+
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:v1.34.0
+
+  proxy:
+    image: registry.k8s.io/kube-proxy:v1.34.0
+
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:v1.34.0
+
+  discovery:
+    enabled: false
+
+  allowSchedulingOnControlPlanes: true
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  minSize: 20GB
+  maxSize: 20GB
+---
+apiVersion: v1alpha1
+kind: SwapVolumeConfig
+name: swap # TODO: encryption
+provisioning:
+  diskSelector:
+    match: "system_disk"
+  minSize: 4GiB
+  maxSize: 4GiB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-storage
+provisioning:
+  diskSelector:
+    match: "system_disk"
+  minSize: 30GB
+  grow: true

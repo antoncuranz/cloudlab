@@ -5,6 +5,7 @@ resources:
   - ./monitoring/namespace.yaml
   - ./monitoring/node-exporter/app.yaml
   - ./monitoring/metrics-server/app.yaml
+  - ./monitoring/kube-state-metrics/app.yaml
 
   - ./networking/namespace.yaml
   - ./networking/envoy-gateway/app.yaml

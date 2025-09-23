@@ -68,6 +68,12 @@ spec:
         - path:
             type: PathPrefix
             value: /node-exporter
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /metrics
       backendRefs:
         - name: prometheus-node-exporter
           port: 9100
@@ -75,6 +81,12 @@ spec:
         - path:
             type: PathPrefix
             value: /kube-state-metrics
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /metrics
       backendRefs:
         - name: prometheus-kube-state-metrics
           port: 8080

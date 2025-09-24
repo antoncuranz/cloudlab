@@ -3,8 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./monitoring/namespace.yaml
+  - ./monitoring/routes/app.yaml
   - ./monitoring/node-exporter/app.yaml
-  - ./monitoring/metrics-server/app.yaml
   - ./monitoring/kube-state-metrics/app.yaml
 
   - ./networking/namespace.yaml

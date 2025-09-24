@@ -8,7 +8,7 @@ spec:
   interval: 1m0s
   dependsOn:
     - name: cloudnative-pg
-    - name: external-secrets
+    - name: onepassword
       namespace: secrets
     - name: democratic-csi
       namespace: storage

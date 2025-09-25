@@ -5,5 +5,5 @@ metadata:
   name: ext-postgres-operator
   namespace: database
 spec:
-  interval: 1m0s
+  interval: 1h
   url: https://movetokube.github.io/postgres-operator/

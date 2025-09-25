@@ -5,5 +5,5 @@ metadata:
   name: metallb
   namespace: networking
 spec:
-  interval: 1m0s
+  interval: 1h
   url: https://metallb.github.io/metallb

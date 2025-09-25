@@ -5,7 +5,7 @@ metadata:
   name: cert-manager-configs
   namespace: networking
 spec:
-  interval: 1m0s
+  interval: 1h
   dependsOn:
     - name: cert-manager
   sourceRef:

@@ -5,7 +5,7 @@ metadata:
   name: pocket-id
   namespace: authentication
 spec:
-  interval: 1m0s
+  interval: 1h
   dependsOn:
     - name: onepassword
       namespace: secrets

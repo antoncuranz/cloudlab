@@ -5,5 +5,5 @@ metadata:
   name: democratic-csi
   namespace: storage
 spec:
-  interval: 1m0s
+  interval: 1h
   url: https://democratic-csi.github.io/charts/

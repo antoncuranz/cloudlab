@@ -5,7 +5,7 @@ metadata:
   name: backend
   namespace: kompass
 spec:
-  interval: 1m0s
+  interval: 15m
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -5,7 +5,7 @@ metadata:
   name: metallb
   namespace: networking
 spec:
-  interval: 1m0s
+  interval: 1h
   chart:
     spec:
       chart: metallb

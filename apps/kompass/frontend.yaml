@@ -5,7 +5,7 @@ metadata:
   name: frontend
   namespace: kompass
 spec:
-  interval: 1m0s
+  interval: 15m
   dependsOn:
     - name: backend
   sourceRef:

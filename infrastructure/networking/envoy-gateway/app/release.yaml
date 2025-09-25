@@ -5,7 +5,7 @@ metadata:
   name: envoy-gateway
   namespace: networking
 spec:
-  interval: 1m0s
+  interval: 1h
   chartRef:
     kind: OCIRepository
     name: envoy-gateway

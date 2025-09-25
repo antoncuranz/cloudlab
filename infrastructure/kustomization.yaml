@@ -9,6 +9,7 @@ resources:
 
   - ./networking/namespace.yaml
   - ./networking/envoy-gateway/app.yaml
+  - ./networking/envoy-gateway/gateway.yaml
   - ./networking/metallb/app.yaml
   - ./networking/metallb/configs.yaml
   - ./networking/cert-manager/app.yaml

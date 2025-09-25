@@ -5,7 +5,7 @@ metadata:
   name: prometheus-kube-state-metrics
   namespace: monitoring
 spec:
-  interval: 1m0s
+  interval: 1h
   chart:
     spec:
       chart: kube-state-metrics

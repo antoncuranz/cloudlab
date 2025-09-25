@@ -9,6 +9,8 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: secrets
+    - name: ext-postgres-operator
+      namespace: database
   sourceRef:
     kind: GitRepository
     name: flux-system

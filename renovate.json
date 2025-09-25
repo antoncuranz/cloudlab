@@ -37,9 +37,13 @@
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ],
+  "flux": {
+    "managerFilePatterns": ["/\\.yaml$/"]
+  },
+  "helm-values": {
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+  },
   "kubernetes": {
-    "fileMatch": [
-      "\\.yaml$"
-    ]
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   }
 }

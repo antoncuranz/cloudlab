@@ -116,19 +116,38 @@ cluster:
 ---
 apiVersion: v1alpha1
 kind: VolumeConfig
+name: STATE
+encryption:
+  provider: luks2
+  keys:
+    - nodeID: {}
+      slot: 0
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
 name: EPHEMERAL
 provisioning:
   minSize: 20GB
   maxSize: 20GB
+encryption:
+  provider: luks2
+  keys:
+    - nodeID: {}
+      slot: 0
 ---
 apiVersion: v1alpha1
 kind: SwapVolumeConfig
-name: swap # TODO: encryption
+name: swap
 provisioning:
   diskSelector:
     match: "system_disk"
   minSize: 4GiB
   maxSize: 4GiB
+encryption:
+  provider: luks2
+  keys:
+    - nodeID: {}
+      slot: 0
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -138,6 +157,11 @@ provisioning:
     match: "system_disk"
   minSize: 30GB
   grow: true
+encryption:
+  provider: luks2
+  keys:
+    - nodeID: {}
+      slot: 0
 ---
 apiVersion: v1alpha1
 kind: NetworkDefaultActionConfig

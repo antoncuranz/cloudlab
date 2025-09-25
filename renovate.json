@@ -8,11 +8,13 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
-  "requiredStatusChecks": null,
+  "ignoreTests": true,
   "packageRules": [
     {
       "matchPackageNames": [],
-      "matchUpdateTypes": ["minor"],
+      "matchUpdateTypes": [
+        "minor"
+      ],
       "automerge": false
     },
     {
@@ -20,16 +22,17 @@
       "automerge": false
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "Process various dependencies",
-      "fileMatch": [
-        ".+\\.ya?ml$",
-        "\\.ya?ml.j2$"
+      "managerFilePatterns": [
+        "/.+\\.ya?ml$/",
+        "/\\.ya?ml.j2$/"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n",
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n",
         "datasource=(?<datasource>\\S+)\n.*?repo: (?<registryUrl>\\S+)\n.*?chart: (?<depName>\\S+)\n.*?version: (?<currentValue>\\S+)\n",
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( registryUrl=(?<registryUrl>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
       ],
@@ -38,12 +41,18 @@
     }
   ],
   "flux": {
-    "managerFilePatterns": ["/\\.yaml$/"]
+    "managerFilePatterns": [
+      "/\\.yaml$/"
+    ]
   },
   "helm-values": {
-    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+    "managerFilePatterns": [
+      "/\\.yaml(?:\\.j2)?$/"
+    ]
   },
   "kubernetes": {
-    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+    "managerFilePatterns": [
+      "/\\.yaml(?:\\.j2)?$/"
+    ]
   }
 }

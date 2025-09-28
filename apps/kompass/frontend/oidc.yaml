@@ -20,5 +20,6 @@ spec:
       - profile
     cookieNames:
       idToken: IdToken
+    forwardAccessToken: true
     redirectURL: https://kompa.ss/oauth2/callback
     logoutPath: /logout

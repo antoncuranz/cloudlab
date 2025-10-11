@@ -27,7 +27,7 @@ spec:
                     name: database-kompass-user
                     key: POSTGRES_URL
               DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
-              AUTH_JWKS_URL: "https://auth.cura.nz/.well-known/jwks.json"
+              AUTH_JWKS_URL: "http://pocket-id.authentication.svc.cluster.local:1411/.well-known/jwks.json"
             envFrom:
               - secretRef:
                   name: kompass-secrets

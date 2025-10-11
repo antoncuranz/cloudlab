@@ -8,19 +8,6 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
-  "packageRules": [
-    {
-      "matchPackageNames": [],
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "automerge": false
-    },
-    {
-      "matchPackageNames": [],
-      "automerge": false
-    }
-  ],
   "flux": {
     "managerFilePatterns": [
       "/\\.yaml$/"

@@ -8,7 +8,7 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
-  "requiredStatusChecks": null,
+  "ignoreTests": true,
   "flux": {
     "managerFilePatterns": [
       "/\\.yaml$/"

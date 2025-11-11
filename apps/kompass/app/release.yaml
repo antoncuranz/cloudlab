@@ -22,10 +22,10 @@ spec:
               pullPolicy: Always
             env:
               JAZZ_SYNC_URL: "http://sync-server.kompass.svc.cluster.local:3000"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
+#            securityContext:
+#              allowPrivilegeEscalation: false
+#              readOnlyRootFilesystem: true
+#              capabilities: { drop: [ "ALL" ] }
 
 #    defaultPodOptions:
 #      securityContext:
@@ -39,7 +39,7 @@ spec:
       main:
         ports:
           http:
-            port: 3000
+            port: 80
 
     route:
       main:

@@ -24,7 +24,7 @@ spec:
               DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
             envFrom:
               - secretRef:
-                  name: kompass-secrets
+                name: kompass-secrets
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -43,3 +43,16 @@ spec:
         ports:
           http:
             port: 8080
+
+    route:
+      main:
+        hostnames:
+          - app.kompa.ss
+        parentRefs:
+          - name: envoy-gateway
+            namespace: networking
+        rules:
+          - matches:
+            - path:
+              type: PathPrefix
+              value: /api

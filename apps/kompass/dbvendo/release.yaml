@@ -22,6 +22,19 @@ spec:
             env:
               USER_AGENT: "antons-cloudlab"
               DB_PROFILE: "dbnav"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 3000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -39,4 +52,4 @@ spec:
       main:
         ports:
           http:
-            port: 3000
+            port: *port

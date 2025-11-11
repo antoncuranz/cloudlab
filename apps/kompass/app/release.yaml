@@ -20,6 +20,19 @@ spec:
               repository: ghcr.io/antoncuranz/kompass/app
               tag: latest
               pullPolicy: Always
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             env:
               JAZZ_SYNC_URL: "http://sync-server.kompass.svc.cluster.local:3000"
 #            securityContext:
@@ -39,7 +52,7 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: *port
 
     route:
       main:

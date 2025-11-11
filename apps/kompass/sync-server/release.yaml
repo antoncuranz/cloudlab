@@ -17,6 +17,19 @@ spec:
             image:
               repository: ghcr.io/antoncuranz/kompass/sync-server
               tag: 0.19.1
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 4200
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -34,7 +47,7 @@ spec:
       main:
         ports:
           http:
-            port: 4200
+            port: *port
 
     route:
       main:

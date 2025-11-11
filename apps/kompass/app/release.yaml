@@ -34,7 +34,7 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             env:
-              JAZZ_SYNC_URL: "http://sync-server.kompass.svc.cluster.local:3000"
+              JAZZ_SYNC_URL: "https://sync.kompa.ss"
 #            securityContext:
 #              allowPrivilegeEscalation: false
 #              readOnlyRootFilesystem: true

@@ -21,6 +21,28 @@ spec:
         certificateRefs:
           - kind: Secret
             name: kompass-cert
+    - name: app-kompass
+      hostname: app.kompa.ss
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: app-kompass-cert
+    - name: sync
+      hostname: sync.kompa.ss
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: sync-cert
     - name: auth
       hostname: auth.cura.nz
       protocol: HTTPS

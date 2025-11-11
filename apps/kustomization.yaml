@@ -6,3 +6,6 @@ resources:
   - ./kompass/backend.yaml
   - ./kompass/frontend.yaml
   - ./kompass/dbvendo.yaml
+  - ./kompass/app.yaml
+  - ./kompass/transportation-api.yaml
+  - ./kompass/sync-server.yaml

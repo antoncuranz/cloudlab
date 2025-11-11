@@ -11,11 +11,11 @@ spec:
     name: dbvendo
   values:
     controllers:
-      dbvendo:
+      main:
         strategy: RollingUpdate
 
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/public-transport/db-vendo-client
               tag: v6.10.5
@@ -24,7 +24,7 @@ spec:
               DB_PROFILE: "dbnav"
 
     service:
-      app:
+      main:
         ports:
           http:
             port: 3000

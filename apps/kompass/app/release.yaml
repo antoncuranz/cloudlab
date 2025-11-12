@@ -37,7 +37,7 @@ spec:
               JAZZ_SYNC_URL: "https://sync.kompa.ss"
             securityContext:
               allowPrivilegeEscalation: false
-#              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: true
               capabilities: { drop: [ "ALL" ] }
 
       transportation-api:

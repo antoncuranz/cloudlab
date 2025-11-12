@@ -23,8 +23,8 @@ spec:
           secretKeyRef:
             name: cloudflare-api-token
             key: api-token
-#    extraArgs:
-#      - --cloudflare-proxied
+    extraArgs:
+      - --cloudflare-proxied
     sources:
       - gateway-httproute
       - gateway-grpcroute

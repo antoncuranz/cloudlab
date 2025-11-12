@@ -25,6 +25,7 @@ resources:
 
   - ./storage/namespace.yaml
   - ./storage/democratic-csi/app.yaml
+  - ./storage/snapshot-controller/app.yaml
   - ./storage/volsync/app.yaml
 
   - ./database/namespace.yaml

@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: app-template
+  namespace: kompass
 spec:
   interval: 15m
   layerSelector:

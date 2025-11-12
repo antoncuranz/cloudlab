@@ -114,7 +114,7 @@ spec:
         controller: transportation-api
         ports:
           http:
-            port: *tapiPort
+            port: 8080 # TODO: use *tapiPort
       sync-server:
         controller: sync-server
         ports:
@@ -134,7 +134,7 @@ spec:
                 port: *appPort
           - backendRefs:
               - identifier: transportation-api
-                port: *tapiPort
+                port: 8080 # TODO: use *tapiPort
             matches:
               - path:
                   type: PathPrefix
@@ -149,6 +149,12 @@ spec:
           - backendRefs:
               - identifier: sync-server
                 port: *syncPort
+
+    configMaps:
+      app-config:
+        data:
+          config.js: |-
+            window.JAZZ_SYNC_URL="https://sync.kompa.ss";
 
     persistence:
       data:

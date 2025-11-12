@@ -162,3 +162,15 @@ spec:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
+        advancedMounts:
+          sync-server:
+            main:
+              - path: /data
+      app-config:
+        type: configMap
+        identifier: app-config
+        advancedMounts:
+          app:
+            main:
+              - path: /var/www/config.js
+                subPath: config.js

@@ -53,7 +53,7 @@ spec:
               DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
             envFrom:
               - secretRef:
-                name: kompass-secrets
+                  name: kompass-secrets
             probes:
               liveness: &tapiProbes
                 enabled: true

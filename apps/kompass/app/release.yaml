@@ -37,7 +37,7 @@ spec:
               JAZZ_SYNC_URL: "https://sync.kompa.ss"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+#              readOnlyRootFilesystem: true
               capabilities: { drop: [ "ALL" ] }
 
       transportation-api:
@@ -54,19 +54,19 @@ spec:
             envFrom:
               - secretRef:
                   name: kompass-secrets
-            probes:
-              liveness: &tapiProbes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: &tapiPort 8080
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *tapiProbes
+#            probes:
+#              liveness: &tapiProbes
+#                enabled: true
+#                custom: true
+#                spec:
+#                  httpGet:
+#                    path: /
+#                    port: &tapiPort 8080
+#                  initialDelaySeconds: 0
+#                  periodSeconds: 10
+#                  timeoutSeconds: 1
+#                  failureThreshold: 3
+#              readiness: *tapiProbes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

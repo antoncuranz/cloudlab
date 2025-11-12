@@ -3,7 +3,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: kompass-db
-  namespace: kompass
 spec:
   database: kompass
 ---
@@ -11,7 +10,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: kompass-user
-  namespace: kompass
 spec:
   role: kompass
   database: kompass-db

@@ -174,3 +174,10 @@ spec:
             main:
               - path: /var/www/config.js
                 subPath: config.js
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          app:
+            main:
+              - path: /tmp
+                subPath: tmp

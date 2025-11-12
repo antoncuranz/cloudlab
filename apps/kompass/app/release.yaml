@@ -134,8 +134,8 @@ spec:
                 port: *tapiPort
             matches:
               - path:
-                type: PathPrefix
-                value: /api
+                  type: PathPrefix
+                  value: /api
       sync-server:
         hostnames:
           - sync.kompa.ss

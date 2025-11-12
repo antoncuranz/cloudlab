@@ -106,14 +106,17 @@ spec:
 
     service:
       app:
+        controller: app
         ports:
           http:
             port: *appPort
       transportation-api:
+        controller: transportation-api
         ports:
           http:
             port: *tapiPort
       sync-server:
+        controller: sync-server
         ports:
           http:
             port: *syncPort

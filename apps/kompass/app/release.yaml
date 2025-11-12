@@ -27,7 +27,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: &appPort 80
+                    port: &appPort 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -35,10 +35,10 @@ spec:
               readiness: *appProbes
             env:
               JAZZ_SYNC_URL: "https://sync.kompa.ss"
-#            securityContext:
-#              allowPrivilegeEscalation: false
-#              readOnlyRootFilesystem: true
-#              capabilities: { drop: [ "ALL" ] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
 
       transportation-api:
         strategy: RollingUpdate
@@ -101,8 +101,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-#        fsGroup: 1000
-#        fsGroupChangePolicy: OnRootMismatch
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:

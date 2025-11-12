@@ -6,6 +6,12 @@ metadata:
   namespace: kompass
 spec:
   interval: 15m
+  components:
+    - ../../components/volsync
+  postBuild:
+    substitute:
+      APP: kompass
+      VOLSYNC_CAPACITY: 10Gi
   sourceRef:
     kind: GitRepository
     name: flux-system

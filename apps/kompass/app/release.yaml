@@ -159,9 +159,7 @@ spec:
     persistence:
       data:
         enabled: true
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 10Gi
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           sync-server:
             main:

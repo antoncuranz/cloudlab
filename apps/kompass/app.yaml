@@ -16,6 +16,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: kompass
   path: ./apps/kompass/app
   prune: true
   wait: true

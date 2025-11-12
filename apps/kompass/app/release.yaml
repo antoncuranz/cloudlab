@@ -54,19 +54,19 @@ spec:
             envFrom:
               - secretRef:
                   name: kompass-secrets
-#            probes:
-#              liveness: &tapiProbes
-#                enabled: true
-#                custom: true
-#                spec:
-#                  httpGet:
-#                    path: /
-#                    port: &tapiPort 8080
-#                  initialDelaySeconds: 0
-#                  periodSeconds: 10
-#                  timeoutSeconds: 1
-#                  failureThreshold: 3
-#              readiness: *tapiProbes
+            probes:
+              liveness: &tapiProbes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &tapiPort 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *tapiProbes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -114,7 +114,7 @@ spec:
         controller: transportation-api
         ports:
           http:
-            port: 8080 # TODO: use *tapiPort
+            port: *tapiPort
       sync-server:
         controller: sync-server
         ports:
@@ -134,7 +134,7 @@ spec:
                 port: *appPort
           - backendRefs:
               - identifier: transportation-api
-                port: 8080 # TODO: use *tapiPort
+                port: *tapiPort
             matches:
               - path:
                   type: PathPrefix

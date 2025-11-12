@@ -8,10 +8,10 @@ spec:
   interval: 15m
   chartRef:
     kind: OCIRepository
-    name: app
+    name: app-template
   values:
     controllers:
-      main:
+      app:
         strategy: RollingUpdate
 
         containers:
@@ -21,43 +21,131 @@ spec:
               tag: latest
               pullPolicy: Always
             probes:
-              liveness: &probes
+              liveness: &appProbes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /
-                    port: &port 80
+                    port: &appPort 80
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness: *probes
+              readiness: *appProbes
             env:
               JAZZ_SYNC_URL: "https://sync.kompa.ss"
-#            securityContext:
-#              allowPrivilegeEscalation: false
-#              readOnlyRootFilesystem: true
-#              capabilities: { drop: [ "ALL" ] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
 
-#    defaultPodOptions:
-#      securityContext:
-#        runAsNonRoot: true
-#        runAsUser: 1000
-#        runAsGroup: 1000
-#        fsGroup: 1000
-#        fsGroupChangePolicy: OnRootMismatch
+      transportation-api:
+        strategy: RollingUpdate
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/antoncuranz/kompass/transportation-api
+              tag: latest
+              pullPolicy: Always
+            env:
+              DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
+            envFrom:
+              - secretRef:
+                name: kompass-secrets
+            probes:
+              liveness: &tapiProbes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &tapiPort 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *tapiProbes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
+      sync-server:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/antoncuranz/kompass/sync-server
+              tag: 0.19.1
+            probes:
+              liveness: &syncProbes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &syncPort 4200
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *syncProbes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
         ports:
           http:
-            port: *port
+            port: *appPort
+      transportation-api:
+        ports:
+          http:
+            port: *tapiPort
+      sync-server:
+        ports:
+          http:
+            port: *syncPort
 
     route:
-      main:
+      app:
         hostnames:
           - app.kompa.ss
         parentRefs:
           - name: envoy-gateway
             namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *appPort
+          - backendRefs:
+              - identifier: transportation-api
+                port: *tapiPort
+            matches:
+              - path:
+                type: PathPrefix
+                value: /api
+      sync-server:
+        hostnames:
+          - sync.kompa.ss
+        parentRefs:
+          - name: envoy-gateway
+            namespace: networking
+
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi

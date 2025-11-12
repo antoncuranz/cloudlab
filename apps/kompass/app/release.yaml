@@ -145,6 +145,10 @@ spec:
         parentRefs:
           - name: envoy-gateway
             namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: sync-server
+                port: *syncPort
 
     persistence:
       data:

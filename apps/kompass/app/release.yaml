@@ -76,7 +76,7 @@ spec:
           main:
             image:
               repository: ghcr.io/antoncuranz/kompass/sync-server
-              tag: 0.19.1
+              tag: 0.19.2
             probes:
               liveness: &syncProbes
                 enabled: true

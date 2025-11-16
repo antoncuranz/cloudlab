@@ -36,7 +36,7 @@ spec:
     route:
       app:
         hostnames:
-          - kompa.ss
+          - old.kompa.ss
         parentRefs:
           - name: envoy-gateway
             namespace: networking

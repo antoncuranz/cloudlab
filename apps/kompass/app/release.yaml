@@ -123,7 +123,7 @@ spec:
     route:
       app:
         hostnames:
-          - app.kompa.ss
+          - kompa.ss
         parentRefs:
           - name: envoy-gateway
             namespace: networking

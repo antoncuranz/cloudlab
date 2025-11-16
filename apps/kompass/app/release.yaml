@@ -178,3 +178,7 @@ spec:
             main:
               - path: /tmp
                 subPath: tmp
+          transportation-api:
+            main:
+              - path: /tmp
+                subPath: tmp

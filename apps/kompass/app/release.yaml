@@ -50,6 +50,7 @@ spec:
               pullPolicy: Always
             env:
               DBVENDO_URL: "http://kompass-dbvendo.kompass.svc.cluster.local:3000"
+              TMPDIR: "/tmp"
             envFrom:
               - secretRef:
                   name: kompass-secrets

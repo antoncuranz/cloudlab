@@ -21,8 +21,8 @@ spec:
         certificateRefs:
           - kind: Secret
             name: kompass-cert
-    - name: app-kompass
-      hostname: app.kompa.ss
+    - name: old-kompass
+      hostname: old.kompa.ss
       protocol: HTTPS
       port: 443
       allowedRoutes:

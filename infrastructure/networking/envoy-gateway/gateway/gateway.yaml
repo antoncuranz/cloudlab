@@ -31,7 +31,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: app-kompass-cert
+            name: old-kompass-cert
     - name: sync
       hostname: sync.kompa.ss
       protocol: HTTPS

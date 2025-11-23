@@ -6,11 +6,11 @@ metadata:
   namespace: baikal
 spec:
   interval: 15m
-#  components:
-#    - ../../../components/volsync
-#  postBuild:
-#    substitute:
-#      APP: baikal
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: baikal
   sourceRef:
     kind: GitRepository
     name: flux-system

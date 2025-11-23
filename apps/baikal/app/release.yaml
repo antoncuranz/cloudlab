@@ -29,7 +29,7 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: [ "ALL" ] }
 
     defaultPodOptions:
@@ -58,6 +58,7 @@ spec:
       data:
         enabled: true
         accessMode: ReadWriteOnce
+        defaultMode: 0660
         size: 5Gi
 #        existingClaim: "{{ .Release.Name }}"
         globalMounts:

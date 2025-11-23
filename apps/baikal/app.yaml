@@ -11,8 +11,8 @@ spec:
   postBuild:
     substitute:
       APP: baikal
-      VOLSYNC_PUID: 101
-      VOLSYNC_GUID: 101
+      VOLSYNC_PUID: "101"
+      VOLSYNC_GUID: "101"
   sourceRef:
     kind: GitRepository
     name: flux-system

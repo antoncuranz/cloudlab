@@ -17,7 +17,7 @@ spec:
           main:
             image:
               repository: ckulka/baikal
-              tag: 0.10.1
+              tag: 0.10.0-nginx
             probes:
               liveness: &probes
                 enabled: true
@@ -35,9 +35,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
         fsGroupChangePolicy: OnRootMismatch
 
     service:

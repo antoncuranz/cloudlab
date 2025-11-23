@@ -17,7 +17,7 @@ spec:
           main:
             image:
               repository: ckulka/baikal
-              tag: 0.10.0-nginx
+              tag: 0.10.0
             probes:
               liveness: &probes
                 enabled: true

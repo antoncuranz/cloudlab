@@ -10,6 +10,17 @@ metadata:
 spec:
   gatewayClassName: envoy-gateway
   listeners:
+    - name: baikal
+      hostname: baikal.cura.nz
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: baikal-cert
     - name: kompass
       hostname: kompa.ss
       protocol: HTTPS

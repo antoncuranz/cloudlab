@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: app
+  namespace: baikal
+spec:
+  interval: 15m
+#  components:
+#    - ../../../components/volsync
+#  postBuild:
+#    substitute:
+#      APP: baikal
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: baikal
+  path: ./apps/baikal/app
+  prune: true
+  wait: true
+  timeout: 5m0s

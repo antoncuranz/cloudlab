@@ -27,17 +27,6 @@ spec:
                     path: /
                     port: &port 80
               readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: [ "ALL" ] }
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 101
-        runAsGroup: 101
-        fsGroup: 101
-        fsGroupChangePolicy: OnRootMismatch
 
     service:
       main:
@@ -56,9 +45,7 @@ spec:
     persistence:
       data:
         enabled: true
-        accessMode: ReadWriteOnce
-        size: 5Gi
-#        existingClaim: "{{ .Release.Name }}"
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /var/www/baikal/config
             subPath: config

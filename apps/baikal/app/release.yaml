@@ -57,6 +57,7 @@ spec:
     persistence:
       data:
         enabled: true
+        storageClass: local-hostpath
 #        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /var/www/baikal/config

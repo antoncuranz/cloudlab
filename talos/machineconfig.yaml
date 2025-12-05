@@ -169,10 +169,11 @@ ingress: block
 ---
 apiVersion: v1alpha1
 kind: NetworkRuleConfig
-name: kubelet-ingress
+name: metrics-ingress
 portSelector:
   ports:
     - 10255
+    - 9100
   protocol: tcp
 ingress:
   - subnet: 10.244.0.0/16

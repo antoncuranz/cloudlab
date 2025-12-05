@@ -22,7 +22,7 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /metrics
       backendRefs:
-        - name: kubelet-metrics
+        - name: host-metrics
           port: 10255
     - matches:
         - path:
@@ -35,7 +35,7 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /metrics/cadvisor
       backendRefs:
-        - name: kubelet-metrics
+        - name: host-metrics
           port: 10255
     - matches:
         - path:
@@ -48,7 +48,7 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /metrics
       backendRefs:
-        - name: prometheus-node-exporter
+        - name: host-metrics
           port: 9100
     - matches:
         - path:

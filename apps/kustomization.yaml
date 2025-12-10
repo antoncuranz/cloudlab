@@ -7,5 +7,3 @@ resources:
   - ./kompass/namespace.yaml
   - ./kompass/app.yaml
   - ./kompass/dbvendo.yaml
-  - ./kompass/backend.yaml
-  - ./kompass/frontend.yaml

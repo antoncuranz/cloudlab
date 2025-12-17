@@ -89,7 +89,7 @@ cluster:
       - 10.96.0.0/12
 
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.34.3
+    image: registry.k8s.io/kube-apiserver:v1.35.0
     certSANs:
       - {{ op://Cloudlab/talos/CP1_IPV4 }}
     disablePodSecurityPolicy: true

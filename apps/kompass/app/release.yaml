@@ -101,7 +101,7 @@ spec:
           main:
             image:
               repository: ghcr.io/antoncuranz/kompass/server-worker
-              tag: 9400a49
+              tag: 1b708b8
               pullPolicy: Always
             probes:
               liveness: &workerProbes
@@ -174,6 +174,11 @@ spec:
               - path:
                   type: PathPrefix
                   value: /api
+          - backendRefs: []
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /worker/internal
           - backendRefs:
               - identifier: server-worker
                 port: *workerPort

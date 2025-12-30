@@ -34,6 +34,11 @@ spec:
               readiness: *appProbes
             env:
               JAZZ_SYNC_URL: "https://sync.kompa.ss"
+              VAPID_PUBLIC_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: kompass-secrets
+                    key: VAPID_PUBLIC_KEY
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

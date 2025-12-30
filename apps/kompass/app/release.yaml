@@ -183,6 +183,12 @@ spec:
               - path:
                   type: PathPrefix
                   value: /worker
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplacePrefixMatch
+                    replacePrefixMatch: ""
       sync-server:
         hostnames:
           - sync.kompa.ss

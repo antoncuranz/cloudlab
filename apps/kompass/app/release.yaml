@@ -96,6 +96,38 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: [ "ALL" ] }
 
+      server-worker:
+        strategy: RollingUpdate
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/antoncuranz/kompass/server-worker
+              tag: 9400a49
+              pullPolicy: Always
+            probes:
+              liveness: &workerProbes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &workerPort 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *workerProbes
+            env:
+              JAZZ_SYNC_URL: "https://sync.kompa.ss"
+            envFrom:
+              - secretRef:
+                  name: kompass-secrets
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -120,6 +152,11 @@ spec:
         ports:
           http:
             port: *syncPort
+      server-worker:
+        controller: server-worker
+        ports:
+          http:
+            port: *workerPort
 
     route:
       app:
@@ -139,6 +176,13 @@ spec:
               - path:
                   type: PathPrefix
                   value: /api
+          - backendRefs:
+              - identifier: server-worker
+                port: *workerPort
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /worker
       sync-server:
         hostnames:
           - sync.kompa.ss

@@ -32,13 +32,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *appProbes
-            env:
-              JAZZ_SYNC_URL: "https://sync.kompa.ss"
-              VAPID_PUBLIC_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: kompass-secrets
-                    key: VAPID_PUBLIC_KEY
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -205,12 +198,6 @@ spec:
               - identifier: sync-server
                 port: *syncPort
 
-    configMaps:
-      app-config:
-        data:
-          config.js: |-
-            window.JAZZ_SYNC_URL="https://sync.kompa.ss";
-
     persistence:
       data:
         enabled: true
@@ -220,13 +207,13 @@ spec:
             main:
               - path: /data
       app-config:
-        type: configMap
-        identifier: app-config
+        type: secret
+        name: kompass-secrets
         advancedMounts:
           app:
             main:
               - path: /var/www/config.js
-                subPath: config.js
+                subPath: APP_CONFIG
       tmpfs:
         type: emptyDir
         advancedMounts:

@@ -101,7 +101,7 @@ spec:
           main:
             image:
               repository: ghcr.io/antoncuranz/kompass/server-worker
-              tag: 1b708b8
+              tag: latest
               pullPolicy: Always
             probes:
               liveness: &workerProbes

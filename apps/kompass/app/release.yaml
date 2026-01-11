@@ -118,6 +118,7 @@ spec:
               readiness: *workerProbes
             env:
               JAZZ_SYNC_URL: "https://sync.kompa.ss"
+              TRANSPORTATION_API_URL: "http://kompass-transportation-api:8080/api/v1"
             envFrom:
               - secretRef:
                   name: kompass-secrets

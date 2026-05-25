@@ -21,6 +21,7 @@ machine:
       read-only-port: 10255
 
   network:
+    hostname: cloudlab
     interfaces:
       - interface: ens3
         addresses:

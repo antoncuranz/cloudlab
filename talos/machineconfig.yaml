@@ -91,6 +91,8 @@ cluster:
 
   apiServer:
     image: registry.k8s.io/kube-apiserver:v1.36.1
+    extraArgs:
+      feature-gates: MutablePVNodeAffinity=true
     certSANs:
       - {{ op://Cloudlab/talos/CP1_IPV4 }}
     disablePodSecurityPolicy: true

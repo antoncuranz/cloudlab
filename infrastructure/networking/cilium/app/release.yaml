@@ -25,19 +25,10 @@ spec:
     kubeProxyReplacement: true
     k8sServiceHost: localhost
     k8sServicePort: 7445
-#    l2announcements:
-#      enabled: true
-#    k8sClientRateLimit:
-#      qps: 20
-#      burst: 40
     gatewayAPI:
       enabled: true
       enableAlpn: true
       enableAppProtocol: true
-    operator:
-      replicas: 1
-      rollOutPods: true
-    rollOutCiliumPods: true
     cgroup:
       autoMount:
         enabled: false
@@ -60,3 +51,5 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+  bpf:
+    hostLegacyRouting: true

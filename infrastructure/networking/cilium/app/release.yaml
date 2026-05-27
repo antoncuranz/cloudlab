@@ -18,7 +18,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-      version: 1.19.4
+      version: 1.18.10
   values:
     ipam:
       mode: kubernetes
@@ -51,5 +51,3 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-  bpf:
-    hostLegacyRouting: true

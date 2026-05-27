@@ -27,7 +27,3 @@ spec:
       - --cloudflare-proxied
     sources:
       - gateway-httproute
-      - gateway-grpcroute
-      - gateway-tcproute
-      - gateway-tlsroute
-      - gateway-udproute

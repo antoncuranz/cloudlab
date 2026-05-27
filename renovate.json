@@ -6,6 +6,17 @@
     ":automergeMinor",
     ":automergeBranch"
   ],
+  "packageRules": [
+    {
+      "matchFileNames": [
+        "infrastructure/networking/gateway-api-crds/app/repo.yaml"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": false
+    }
+  ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "commitMessageExtra": "from {{{displayFrom}}} to {{{displayTo}}}",
   "ignoreTests": true,

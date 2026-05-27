@@ -5,10 +5,9 @@ metadata:
   name: envoy-gateway
   namespace: networking
   annotations:
-#    external-dns.alpha.kubernetes.io/target: cloudlab.cura.nz
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  gatewayClassName: envoy-gateway
+  gatewayClassName: cilium
   listeners:
     - name: baikal
       hostname: baikal.cura.nz

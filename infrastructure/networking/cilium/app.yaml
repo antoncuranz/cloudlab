@@ -2,18 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager
+  name: cilium
   namespace: networking
 spec:
   interval: 1h
   dependsOn:
     - name: gateway-api-crds
-      namespace: networking
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/networking/cert-manager/app
+  path: ./infrastructure/networking/cilium/app
   prune: true
   wait: true
-  timeout: 5m0s
+  timeout: 10m0s

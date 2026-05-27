@@ -83,6 +83,8 @@ cluster:
     endpoint: https://{{ op://Cloudlab/talos/CP1_IPV4 }}:6443
 
   network:
+    cni:
+      name: none
     dnsDomain: cluster.local
     podSubnets:
       - 10.244.0.0/16
@@ -107,6 +109,7 @@ cluster:
     image: registry.k8s.io/kube-controller-manager:v1.36.1
 
   proxy:
+    disabled: true
     image: registry.k8s.io/kube-proxy:v1.36.1
 
   scheduler:

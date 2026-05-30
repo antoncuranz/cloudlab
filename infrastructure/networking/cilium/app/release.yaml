@@ -25,10 +25,6 @@ spec:
     kubeProxyReplacement: true
     k8sServiceHost: localhost
     k8sServicePort: 7445
-    gatewayAPI:
-      enabled: true
-      enableAlpn: true
-      enableAppProtocol: true
     cgroup:
       autoMount:
         enabled: false

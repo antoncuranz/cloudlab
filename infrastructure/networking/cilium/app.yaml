@@ -6,8 +6,6 @@ metadata:
   namespace: networking
 spec:
   interval: 1h
-  dependsOn:
-    - name: gateway-api-crds
   sourceRef:
     kind: GitRepository
     name: flux-system

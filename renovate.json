@@ -9,7 +9,6 @@
   "packageRules": [
     {
       "matchFileNames": [
-        "infrastructure/networking/gateway-api-crds/app/repo.yaml",
         "infrastructure/networking/cilium/app/release.yaml"
       ],
       "matchUpdateTypes": [

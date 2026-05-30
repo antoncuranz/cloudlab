@@ -6,11 +6,6 @@ metadata:
   namespace: networking
 spec:
   interval: 1h
-  targetNamespace: kube-system
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   chart:
     spec:
       chart: cilium

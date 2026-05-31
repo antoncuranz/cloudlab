@@ -42,3 +42,5 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    l2announcements:
+      enabled: true

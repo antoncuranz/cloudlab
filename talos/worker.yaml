@@ -27,7 +27,7 @@ machine:
 
   install:
     disk: /dev/vda
-    image: ghcr.io/siderolabs/installer:v1.12.8
+    image: ghcr.io/siderolabs/installer:v1.13.3
     wipe: false
 
   registries: { }

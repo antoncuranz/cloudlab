@@ -1,0 +1,12 @@
+machine:
+  type: controlplane
+  network:
+    hostname: cloudlab-g1
+    interfaces:
+      - interface: {{ op://Cloudlab/talos/G1_INTERFACE }}
+        addresses:
+          - {{ op://Cloudlab/talos/G1_IPV4 }}/24
+          - {{ op://Cloudlab/talos/G1_IPV6 }}
+        routes:
+          - network: 0.0.0.0/0
+            gateway: {{ op://Cloudlab/talos/G1_GATEWAY }}

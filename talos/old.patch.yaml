@@ -1,0 +1,12 @@
+machine:
+  type: worker
+  network:
+    hostname: cloudlab
+    interfaces:
+      - interface: {{ op://Cloudlab/talos/OLD_INTERFACE }}
+        addresses:
+          - {{ op://Cloudlab/talos/OLD_IPV4 }}/22
+          - {{ op://Cloudlab/talos/OLD_IPV6 }}
+        routes:
+          - network: 0.0.0.0/0
+            gateway: {{ op://Cloudlab/talos/OLD_GATEWAY }}

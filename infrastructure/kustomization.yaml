@@ -9,7 +9,6 @@ resources:
 
   - ./networking/namespace.yaml
   - ./networking/cilium/app.yaml
-  - ./networking/cilium/configs.yaml
   - ./networking/envoy-gateway/app.yaml
   - ./networking/envoy-gateway/gateway.yaml
   - ./networking/cert-manager/app.yaml

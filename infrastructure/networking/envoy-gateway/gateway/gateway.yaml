@@ -6,11 +6,12 @@ metadata:
   namespace: networking
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/target: "lb.cura.nz"
 spec:
   gatewayClassName: envoy-gateway
   listeners:
-    - name: baikal
-      hostname: baikal.cura.nz
+    - name: curanz
+      hostname: cura.nz
       protocol: HTTPS
       port: 443
       allowedRoutes:
@@ -19,7 +20,18 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: baikal-cert
+            name: curanz-tls
+    - name: curanz-wildcard
+      hostname: "*.cura.nz"
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-curanz-tls
     - name: kompass
       hostname: kompa.ss
       protocol: HTTPS
@@ -30,9 +42,9 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: kompass-cert
-    - name: old-kompass
-      hostname: old.kompa.ss
+            name: kompass-tls
+    - name: kompass-wildcard
+      hostname: "*.kompa.ss"
       protocol: HTTPS
       port: 443
       allowedRoutes:
@@ -41,37 +53,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: old-kompass-cert
-    - name: sync
-      hostname: sync.kompa.ss
-      protocol: HTTPS
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: sync-cert
-    - name: auth
-      hostname: auth.cura.nz
-      protocol: HTTPS
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: auth-cert
-    - name: metrics
-      hostname: metrics.cura.nz
-      protocol: HTTPS
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: metrics-cert
+            name: wildard-kompass-tls

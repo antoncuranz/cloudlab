@@ -162,7 +162,7 @@ spec:
         hostnames:
           - kompa.ss
         parentRefs:
-          - name: envoy-gateway
+          - name: gateway
             namespace: networking
         rules:
           - backendRefs:
@@ -197,7 +197,7 @@ spec:
         hostnames:
           - sync.kompa.ss
         parentRefs:
-          - name: envoy-gateway
+          - name: gateway
             namespace: networking
         rules:
           - backendRefs:

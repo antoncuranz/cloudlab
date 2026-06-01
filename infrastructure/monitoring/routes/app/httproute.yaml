@@ -8,7 +8,7 @@ spec:
   hostnames:
     - metrics.cura.nz
   parentRefs:
-    - name: envoy-gateway
+    - name: gateway
       namespace: networking
   rules:
     - matches:

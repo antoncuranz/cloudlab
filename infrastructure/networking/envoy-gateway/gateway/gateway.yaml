@@ -2,13 +2,12 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: envoy-gateway
-  namespace: networking
+  name: gateway
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     external-dns.alpha.kubernetes.io/target: "lb.cura.nz"
 spec:
-  gatewayClassName: envoy-gateway
+  gatewayClassName: envoy
   listeners:
     - name: curanz
       hostname: cura.nz

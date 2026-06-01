@@ -16,8 +16,8 @@ spec:
         containers:
           main:
             image:
-              repository: ckulka/baikal
-              tag: 0.10.1-nginx
+              repository: ghcr.io/aalmenar/baikal
+              tag: 0.11.1-nginx
             probes:
               liveness: &probes
                 enabled: true
@@ -39,7 +39,7 @@ spec:
         hostnames:
           - baikal.cura.nz
         parentRefs:
-          - name: envoy-gateway
+          - name: gateway
             namespace: networking
 
     persistence:

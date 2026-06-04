@@ -8,7 +8,7 @@ spec:
   interval: 1h
   dependsOn:
     - name: cloudnative-pg-cluster
-    - name: onepassword
+    - name: external-secrets-store
       namespace: secrets
   sourceRef:
     kind: GitRepository

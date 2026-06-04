@@ -17,6 +17,7 @@ resources:
 
   - ./secrets/namespace.yaml
   - ./secrets/external-secrets/app.yaml
+  - ./secrets/external-secrets/store.yaml
   - ./secrets/onepassword/app.yaml
 
   - ./storage/namespace.yaml

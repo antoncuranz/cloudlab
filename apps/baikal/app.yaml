@@ -6,6 +6,9 @@ metadata:
   namespace: baikal
 spec:
   interval: 15m
+  dependsOn:
+    - name: external-secrets-store
+      namespace: secrets
   components:
     - ../../../components/volsync
   postBuild:

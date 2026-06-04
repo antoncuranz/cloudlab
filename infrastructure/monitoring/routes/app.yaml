@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1h
   dependsOn:
-    - name: onepassword
+    - name: external-secrets-store
       namespace: secrets
     - name: envoy-gateway
       namespace: networking

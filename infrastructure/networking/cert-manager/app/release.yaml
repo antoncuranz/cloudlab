@@ -16,7 +16,7 @@ spec:
       version: v1.20.2
   values:
     crds:
-      enabled: true
+      enabled: false
     config:
       apiVersion: controller.config.cert-manager.io/v1alpha1
       kind: ControllerConfiguration

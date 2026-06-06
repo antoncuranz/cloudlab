@@ -7,9 +7,9 @@ metadata:
 spec:
   interval: 1h
   install:
-    crds: CreateReplace
+    crds: Skip
   upgrade:
-    crds: CreateReplace
+    crds: Skip
   chartRef:
     kind: OCIRepository
     name: envoy-gateway

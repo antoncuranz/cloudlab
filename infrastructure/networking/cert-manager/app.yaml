@@ -6,6 +6,9 @@ metadata:
   namespace: networking
 spec:
   interval: 1h
+  dependsOn:
+    - name: cert-manager-crds
+      namespace: networking
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -6,6 +6,13 @@ metadata:
   namespace: database
 spec:
   interval: 1h
+  dependsOn:
+    - name: cloudnative-pg-crds
+      namespace: database
+    - name: external-secrets
+      namespace: secrets
+    - name: democratic-csi
+      namespace: storage
   sourceRef:
     kind: GitRepository
     name: flux-system

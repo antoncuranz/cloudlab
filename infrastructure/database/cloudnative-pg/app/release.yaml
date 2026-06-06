@@ -6,6 +6,9 @@ metadata:
   namespace: database
 spec:
   interval: 1h
+  values:
+    crds:
+      create: false
   chart:
     spec:
       chart: cloudnative-pg

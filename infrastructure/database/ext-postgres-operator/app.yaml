@@ -7,8 +7,9 @@ metadata:
 spec:
   interval: 1h
   dependsOn:
-    - name: cloudnative-pg-cluster
-    - name: external-secrets-store
+    - name: cloudnative-pg
+      namespace: database
+    - name: external-secrets
       namespace: secrets
   sourceRef:
     kind: GitRepository

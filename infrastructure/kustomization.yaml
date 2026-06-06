@@ -9,16 +9,13 @@ resources:
 
   - ./networking/namespace.yaml
   - ./networking/cilium/app.yaml
-  - ./networking/envoy-gateway/crds-source.yaml
   - ./networking/envoy-gateway/crds.yaml
   - ./networking/envoy-gateway/app.yaml
-  - ./networking/cert-manager/crds-source.yaml
   - ./networking/cert-manager/crds.yaml
   - ./networking/cert-manager/app.yaml
   - ./networking/external-dns/app.yaml
 
   - ./secrets/namespace.yaml
-  - ./secrets/external-secrets/crds-source.yaml
   - ./secrets/external-secrets/crds.yaml
   - ./secrets/external-secrets/app.yaml
   - ./secrets/onepassword/app.yaml
@@ -29,7 +26,6 @@ resources:
   - ./storage/volsync/app.yaml
 
   - ./database/namespace.yaml
-  - ./database/cloudnative-pg/crds-source.yaml
   - ./database/cloudnative-pg/crds.yaml
   - ./database/cloudnative-pg/app.yaml
   - ./database/ext-postgres-operator/app.yaml

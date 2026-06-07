@@ -1,0 +1,51 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: cloudnative-pg-crds
+  namespace: database
+spec:
+  interval: 1h
+  ref:
+    tag: v1.29.1
+  url: https://github.com/cloudnative-pg/cloudnative-pg
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloudnative-pg-crds
+  namespace: database
+spec:
+  interval: 1h
+  sourceRef:
+    kind: GitRepository
+    name: cloudnative-pg-crds
+    namespace: database
+  path: ./config/crd/bases
+  prune: true
+  wait: true
+  timeout: 5m0s
+---
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloudnative-pg
+  namespace: database
+spec:
+  interval: 1h
+  dependsOn:
+    - name: cloudnative-pg-crds
+      namespace: database
+    - name: external-secrets
+      namespace: secrets
+    - name: democratic-csi
+      namespace: storage
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./infrastructure/database/cloudnative-pg
+  prune: true
+  wait: true
+  timeout: 5m0s

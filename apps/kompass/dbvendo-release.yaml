@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kompass-dbvendo
+  namespace: kompass
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: dbvendo
+  values:
+    controllers:
+      main:
+        strategy: RollingUpdate
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/public-transport/db-vendo-client
+              tag: v6.10.11
+            env:
+              USER_AGENT: "antons-cloudlab"
+              DB_PROFILE: "dbnav"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 3000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port

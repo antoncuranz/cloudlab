@@ -4,78 +4,70 @@
 
 ```text
 apps/
-  base/
-  production/
-  local/
+  baikal/
+  kompass/
 infrastructure/
-  base/
-  production/
-  local/
+  database/
+  monitoring/
+  networking/
+  secrets/
+  storage/
 clusters/
   base/
-  production/
   local/
+  prod/
 ```
 
-- `apps/base`, `infrastructure/base`, and `clusters/base` hold the shared Flux-managed resources.
-- `apps/production` and `infrastructure/production` are thin production overlays.
-- `apps/local` and `infrastructure/local` apply local-only safety patches.
-- `clusters/production` and `clusters/local` are alternative Flux sync entrypoints for separate target clusters.
+- `clusters/base/apps` holds shared app Flux `Kustomization` objects.
+- `clusters/base/infrastructure` holds the shared infrastructure Flux graph.
+- `clusters/local` and `clusters/prod` are the Flux sync entrypoints.
+- `clusters/local/apps` and `clusters/prod/apps` render env-specific app Flux objects.
+- `clusters/local/infrastructure` and `clusters/prod/infrastructure` render env-specific infrastructure Flux objects.
+- Component directories live directly under `apps/` and `infrastructure/`.
+- Only components with local differences keep `base/` and `local/`.
+- Production app-only volsync behavior is injected from `clusters/prod/apps/patches.yaml`.
+
+## Environment rules
+
+- Shared nested Flux paths live in `clusters/base`.
+- `clusters/local/infrastructure/patches.yaml` rewrites only the infrastructure Flux `spec.path` values that differ locally.
+- `clusters/prod/apps/patches.yaml` is the only app-specific override layer.
+- Base external-secrets uses the real provider-backed `ClusterSecretStore`.
+- Local external-secrets overrides it with a fake provider.
+- Production app overrides add volsync.
+- Base apps do not render app-level volsync resources.
 
 ## Bootstrap
 
-Use different target clusters for production and local. Both entrypoints intentionally reuse the standard `flux-system` object names.
-
 ```bash
-./bootstrap/run.sh production
+./bootstrap/run.sh prod
 ./bootstrap/run.sh local
 ```
 
 The script selects:
 
-- `./clusters/production` for production
-- `./clusters/local` for local
-
-## Local safety behavior
-
-`infrastructure/local` keeps the same main controllers as production, but changes the risky parts:
-
-- cert-manager keeps the `letsencrypt-prod` name but switches to `selfSigned: {}`
-- external-dns still uses the Cloudflare provider, but is constrained to `domainFilters: [local.test]`
-- external-dns uses `txtOwnerId: cloudlab-local`
-- a placeholder `cloudflare-api-token` secret is included for cleaner local controller startup
-- app-level volsync components are removed from local app Flux `Kustomization` resources
-
-## Limitations
-
-- Local certificates are self-signed.
-- Local external-dns is intentionally filtered away from the production hostnames already present in app manifests.
-- Local app overlays disable app-level volsync restore and backup resources; the volsync controller may still exist in infrastructure.
+- branch `main` with `./clusters/prod`
+- branch `local` with `./clusters/local`
 
 ## Verification
 
-Production:
-
 ```bash
-kustomize build apps/production
-kustomize build infrastructure/production
-kustomize build clusters/production
-```
-
-Local:
-
-```bash
-kustomize build infrastructure/local
-kustomize build infrastructure/local | rg 'name: cert-manager|name: external-dns|selfSigned|domainFilters|txtOwnerId'
-kustomize build apps/local
-kustomize build apps/local | rg 'components:'
-kustomize build apps/local | rg 'volsync.backube'
+kustomize build clusters/base
+kustomize build clusters/local/apps
+kustomize build clusters/local/infrastructure
+kustomize build clusters/prod/apps
+kustomize build clusters/prod/infrastructure
 kustomize build clusters/local
+kustomize build clusters/prod
 ```
 
-Expected local results:
+```bash
+kustomize build clusters/local | rg 'name: infrastructure|name: apps|dependsOn:'
+kustomize build clusters/prod | rg 'name: infrastructure|name: apps|dependsOn:'
+```
 
-- the local cert-manager Flux `Kustomization` includes a patch that removes ACME and adds `selfSigned: {}` for `ClusterIssuer/letsencrypt-prod`
-- the local external-dns Flux `Kustomization` includes patches for `domainFilters: [local.test]` and `txtOwnerId: cloudlab-local`
-- `kustomize build apps/local | rg 'components:'` returns no matches
-- `kustomize build apps/local | rg 'volsync.backube'` returns no matches
+```bash
+kustomize build infrastructure/networking/cert-manager/local | rg 'selfSigned|acme'
+kustomize build infrastructure/secrets/external-secrets/local | rg 'fake:'
+kustomize build infrastructure/secrets/external-secrets/base | rg 'onepassword:'
+```

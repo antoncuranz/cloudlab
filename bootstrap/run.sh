@@ -1,17 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-environment="${1:-production}"
+environment="${1:-prod}"
 
 case "$environment" in
-  production)
-    flux_path=./clusters/production
+  prod|production)
+    environment=prod
+    flux_path=./clusters/prod
+    flux_branch=main
     ;;
   local)
     flux_path=./clusters/local
+    flux_branch=local
     ;;
   *)
-    echo "usage: $0 [production|local]" >&2
+    echo "usage: $0 [prod|local]" >&2
     exit 1
     ;;
 esac
@@ -20,11 +23,11 @@ cat initial-secrets.yaml | op inject | kubectl apply --server-side --field-manag
 
 "$(dirname "$0")/install-cilium.sh"
 
-echo "Bootstrapping ${environment} from ${flux_path}. Use production and local against separate target clusters; both reuse the standard flux-system names."
+echo "Bootstrapping ${environment} from ${flux_path}. Use prod and local against separate target clusters; both reuse the standard flux-system names."
 
 flux bootstrap github \
   --owner=antoncuranz \
   --repository=cloudlab \
-  --branch=main \
+  --branch="${flux_branch}" \
   --path="${flux_path}" \
   --personal

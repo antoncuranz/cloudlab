@@ -2,9 +2,9 @@
 set -euo pipefail
 
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-release_file="$root_dir/infrastructure/base/networking/cilium/app/release.yaml"
-repo_file="$root_dir/infrastructure/base/networking/cilium/app/repo.yaml"
-namespace_file="$root_dir/infrastructure/base/networking/namespace.yaml"
+release_file="$root_dir/infrastructure/networking/cilium/release.yaml"
+repo_file="$root_dir/infrastructure/networking/cilium/repo.yaml"
+namespace_file="$root_dir/infrastructure/base/networking-namespace.yaml"
 
 for bin in helm kubectl yq; do
   if ! command -v "$bin" >/dev/null 2>&1; then

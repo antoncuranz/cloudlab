@@ -10,6 +10,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: cilium
+  namespace: networking
+spec:
+  path: ./infrastructure/networking/cilium/local
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: external-dns
   namespace: networking
 spec:

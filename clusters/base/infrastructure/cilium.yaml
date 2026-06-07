@@ -10,7 +10,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/networking/cilium
+  path: ./infrastructure/networking/cilium/base
   prune: true
   wait: true
   timeout: 10m0s

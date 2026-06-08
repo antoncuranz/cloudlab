@@ -1,8 +1,7 @@
 minikube start --cpus 4 --memory 8192 \
   --apiserver-port=7445 \
   --network-plugin=cni \
-  --cni=false \
-  --extra-config=kubeadm.skip-phases=addon/kube-proxy
+  --cni=false
 
 "$(dirname "$0")/install-cilium.sh"
 

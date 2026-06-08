@@ -2,6 +2,19 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base/apps
+  - ../../../apps/baikal/prod.yaml
+  - ../../../apps/kompass/prod.yaml
 patches:
-  - path: ./patches.yaml
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      kind: Kustomization
+    patch: |-
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      metadata:
+        name: template
+      spec:
+        prune: true
+        wait: true
+        interval: 1m0s
+        timeout: 5m0s

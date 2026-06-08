@@ -2,13 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infrastructure
-  namespace: flux-system
+  name: kompass
+  namespace: kompass
 spec:
-  dependsOn:
-    - name: namespaces
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/prod/infrastructure
+  targetNamespace: kompass
+  path: ./apps/kompass/app

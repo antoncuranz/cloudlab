@@ -1,111 +1,117 @@
 ---
-name: "Flux Local"
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Flate
 
 on:
   pull_request:
     branches:
-      - "main"
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   test:
-    name: Flux Local Test
+    name: Flate - Test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Checkout Pull Request Branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+          path: pull
 
-      - name: Run flux-local test
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
+      - name: Checkout Default Branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          args: test --enable-helm --all-namespaces --path /github/workspace/clusters/prod -v
+          persist-credentials: false
+          ref: ${{ github.event.repository.default_branch }}
+          path: default
+
+      - name: Run flate test
+        uses: docker://ghcr.io/home-operations/flate:0.0.4
+        with:
+          args: >-
+            test
+            --path ./pull/clusters/prod
+            --path-orig ./default/clusters/prod
 
   diff:
-    name: Flux Local Diff
+    name: Flate - Diff
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
     strategy:
       matrix:
-        resources:
-          - "helmrelease"
-          - "kustomization"
-      max-parallel: 4
+        resource:
+          - helmrelease
+          - kustomization
       fail-fast: false
     steps:
       - name: Checkout Pull Request Branch
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          path: pull
           persist-credentials: false
+          path: pull
 
       - name: Checkout Default Branch
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          ref: "${{ github.event.repository.default_branch }}"
-          path: default
           persist-credentials: false
+          ref: ${{ github.event.repository.default_branch }}
+          path: default
 
-      - name: Run flux-local diff
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
+      - name: Run flate diff
+        uses: docker://ghcr.io/home-operations/flate:0.0.4
         with:
           args: >-
-            diff ${{ matrix.resources }}
-            --unified 6
-            --path /github/workspace/pull/clusters/prod
-            --path-orig /github/workspace/default/clusters/prod
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
+            diff ${{ matrix.resource }}
             --limit-bytes 10000
-            --all-namespaces
-            --sources "flux-system"
             --output-file diff.patch
+            --path ./pull/clusters/prod
+            --path-orig ./default/clusters/prod
+            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
+            --unified 6
 
       - name: Generate Diff
         id: diff
-        run: |
-          cat diff.patch;
-          {
-              echo 'diff<<EOF'
-              cat diff.patch
-              echo EOF
-          } >> "$GITHUB_OUTPUT";
-          {
-              echo "### Diff"
-              echo '```diff'
-              cat diff.patch
-              echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: |-
+          echo 'diff<<EOF' >> $GITHUB_OUTPUT
+          cat diff.patch >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
-      - name: Add Comment
-        if: ${{ steps.diff.outputs.diff != '' }}
-        continue-on-error: true
-        uses: mshick/add-pr-comment@8e4927817251f1ff60c001f04568532b38e0b4a0 # v3.11
+      - if: ${{ steps.diff.outputs.diff != '' }}
+        name: Generate Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
         with:
-          message-id: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
-          message-failure: Diff was not successful
-          message: |
+          client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          permission-pull-requests: write
+
+      - if: ${{ steps.diff.outputs.diff != '' }}
+        name: Add Comment
+        uses: marocchino/sticky-pull-request-comment@0ea0beb66eb9baf113663a64ec522f60e49231c0 # v3.0.4
+        with:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          header: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resource }}
+          message: |-
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
 
-  flux-local-status:
-    name: Flux Local Success
+  success:
+    if: ${{ !cancelled() }}
     needs:
-      - "test"
-      - "diff"
+      - test
+      - diff
+    name: Flate - Success
     runs-on: ubuntu-latest
-    permissions: {}
-    if: ${{ always() }}
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

@@ -5,12 +5,8 @@ metadata:
   name: external-dns
   namespace: networking
 spec:
-  interval: 1h
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   path: ./infrastructure/networking/external-dns/app
-  prune: true
-  wait: true
-  timeout: 5m0s

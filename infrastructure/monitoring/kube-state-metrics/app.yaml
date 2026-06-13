@@ -5,12 +5,8 @@ metadata:
   name: kube-state-metrics
   namespace: monitoring
 spec:
-  interval: 1h
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/monitoring/kube-state-metrics/app
-  prune: true
-  wait: true
-  timeout: 5m0s
+  path: ./infrastructure/monitoring/kube-state-metrics

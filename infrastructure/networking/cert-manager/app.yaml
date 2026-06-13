@@ -5,7 +5,6 @@ metadata:
   name: cert-manager
   namespace: networking
 spec:
-  interval: 1h
   dependsOn:
     - name: cert-manager-crds
       namespace: networking
@@ -14,6 +13,3 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./infrastructure/networking/cert-manager/app
-  prune: true
-  wait: true
-  timeout: 5m0s

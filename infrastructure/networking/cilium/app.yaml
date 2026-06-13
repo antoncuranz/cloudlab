@@ -5,12 +5,8 @@ metadata:
   name: cilium
   namespace: networking
 spec:
-  interval: 1h
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   path: ./infrastructure/networking/cilium/app
-  prune: true
-  wait: true
-  timeout: 10m0s

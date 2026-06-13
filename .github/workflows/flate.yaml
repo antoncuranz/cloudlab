@@ -51,17 +51,26 @@ jobs:
           cache: true
 
       - name: Run flate diff
-        run: |
-          flate diff all --path ./clusters/prod --output github > flate.diff
-          [ -s flate.diff ] || rm flate.diff
+        run: >-
+          flate diff all
+          --path ./clusters/prod
+          --output diff
+          > diff.patch
 
-      - name: Upload diff
-        if: ${{ hashFiles('flate.diff') != '' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: flate-diff
-          path: flate.diff
-          retention-days: 1
+      - name: Generate Diff Summary
+        run: |
+          touch diff.patch
+          cat diff.patch
+          if [ -s diff.patch ]; then
+            {
+              echo "### Flate Diff"
+              echo '```diff'
+              cat diff.patch
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No diff output" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
   flate-status:
     name: Flate Success

@@ -11,3 +11,10 @@ spec:
     namespace: flux-system
   targetNamespace: baikal
   path: ./apps/baikal/app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: baikal
+      VOLSYNC_PUID: "101"
+      VOLSYNC_PGID: "101"

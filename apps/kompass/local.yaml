@@ -2,19 +2,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: baikal
-  namespace: baikal
+  name: kompass
+  namespace: kompass
 spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: baikal
-  path: ./apps/baikal/app
+  targetNamespace: kompass
+  path: ./apps/kompass/app
   components:
-    - ../../../components/volsync
+    - ../../../components/volsync-local
   postBuild:
     substitute:
-      APP: baikal
-      VOLSYNC_PUID: "101"
-      VOLSYNC_PGID: "101"
+      APP: kompass
+      VOLSYNC_CAPACITY: 10Gi

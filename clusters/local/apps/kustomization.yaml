@@ -2,8 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../../apps/baikal/app.yaml
-  - ../../../apps/kompass/app.yaml
+  - ../../../apps/baikal/local.yaml
+  - ../../../apps/kompass/local.yaml
 patches:
   - target:
       group: kustomize.toolkit.fluxcd.io

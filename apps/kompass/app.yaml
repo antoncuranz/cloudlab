@@ -11,3 +11,9 @@ spec:
     namespace: flux-system
   targetNamespace: kompass
   path: ./apps/kompass/app
+  components:
+    - ../../../components/volsync
+  postBuild:
+    substitute:
+      APP: kompass
+      VOLSYNC_CAPACITY: 10Gi

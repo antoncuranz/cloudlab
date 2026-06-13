@@ -15,7 +15,6 @@ permissions: {}
 jobs:
   test:
     name: Flux Local Test
-    needs: pre-job
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,7 +31,6 @@ jobs:
 
   diff:
     name: Flux Local Diff
-    needs: pre-job
     runs-on: ubuntu-latest
     permissions:
       contents: read

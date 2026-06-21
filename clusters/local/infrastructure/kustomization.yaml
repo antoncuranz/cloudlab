@@ -18,8 +18,7 @@ resources:
   - ../../../infrastructure/database/cloudnative-pg/app.yaml
   - ../../../infrastructure/database/ext-postgres-operator/app.yaml
   - ../../../infrastructure/monitoring/routes/app.yaml
-  - ../../../infrastructure/monitoring/node-exporter/app.yaml
-  - ../../../infrastructure/monitoring/kube-state-metrics/app.yaml
+  - ../../../infrastructure/monitoring/prometheus/app.yaml
 patches:
   - target:
       group: kustomize.toolkit.fluxcd.io

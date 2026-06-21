@@ -2,11 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kube-state-metrics
+  name: prometheus
   namespace: monitoring
 spec:
+  dependsOn:
+    - name: democratic-csi
+      namespace: storage
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/monitoring/kube-state-metrics
+  path: ./infrastructure/monitoring/prometheus/app

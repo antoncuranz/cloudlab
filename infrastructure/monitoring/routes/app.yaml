@@ -14,4 +14,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/monitoring/routes
+  path: ./infrastructure/monitoring/routes/app

@@ -19,14 +19,20 @@ spec:
         name: kube-prometheus-stack
       version: 86.3.2
   values:
-    alertmanager:
-      enabled: false
-    grafana:
-      enabled: false
     kubeStateMetrics:
       enabled: true
     nodeExporter:
       enabled: true
+    alertmanager:
+      enabled: false
+    grafana:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
     prometheus:
       prometheusSpec:
         retention: 7d

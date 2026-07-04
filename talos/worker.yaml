@@ -139,6 +139,7 @@ portSelector:
     - 10250
   protocol: tcp
 ingress:
+  - subnet: 10.244.0.0/16
   - subnet: {{ op://Cloudlab/talos/OLD_IPV4 }}/32
   - subnet: {{ op://Cloudlab/talos/G1_IPV4 }}/32
 ---
@@ -174,6 +175,8 @@ portSelector:
   protocol: tcp
 ingress:
   - subnet: 10.244.0.0/16
+  - subnet: {{ op://Cloudlab/talos/OLD_IPV4 }}/32
+  - subnet: {{ op://Cloudlab/talos/G1_IPV4 }}/32
 ---
 apiVersion: v1alpha1
 kind: NetworkRuleConfig

@@ -1,10 +1,12 @@
 machine:
   type: controlplane
   ca:
+    crt: op://Cloudlab/talos/MACHINE_CA_CRT
     key: op://Cloudlab/talos/MACHINE_CA_KEY
 
 cluster:
   ca:
+    crt: op://Cloudlab/talos/CLUSTER_CA_CRT
     key: op://Cloudlab/talos/CLUSTER_CA_KEY
   aggregatorCA:
     crt: op://Cloudlab/talos/CLUSTER_AGGREGATORCA_CRT

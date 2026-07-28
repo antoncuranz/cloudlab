@@ -17,4 +17,4 @@ spec:
         name: kyverno
       version: 3.8.2
   values:
-    podSecurityStandard: restricted
+    podSecurityStandard: baseline

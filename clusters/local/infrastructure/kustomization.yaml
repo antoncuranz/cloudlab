@@ -19,7 +19,6 @@ resources:
   - ../../../infrastructure/database/ext-postgres-operator/app.yaml
   - ../../../infrastructure/monitoring/routes/app.yaml
   - ../../../infrastructure/monitoring/prometheus/app.yaml
-  - ../../../infrastructure/kyverno/app.yaml
 patches:
   - target:
       group: kustomize.toolkit.fluxcd.io

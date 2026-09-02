@@ -17,7 +17,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kube-prometheus-stack
-      version: 86.3.2
+      version: 88.6.3
   values:
     kubeStateMetrics:
       enabled: true

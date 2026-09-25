@@ -73,7 +73,7 @@ cluster:
 
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.37.0
+    image: registry.k8s.io/kube-proxy:v1.37.1
 
   discovery:
     enabled: false

@@ -117,7 +117,7 @@ spec:
                   failureThreshold: 3
               readiness: *workerProbes
             env:
-              JAZZ_SYNC_URL: "https://sync.kompa.ss"
+              JAZZ_SYNC_URL: "https://sync.kompass.cura.nz"
               TRANSPORTATION_API_URL: "http://kompass-transportation-api:8080/api/v1"
             envFrom:
               - secretRef:
@@ -160,7 +160,7 @@ spec:
     route:
       app:
         hostnames:
-          - kompa.ss
+          - kompass.cura.nz
         parentRefs:
           - name: gateway
             namespace: networking
@@ -195,7 +195,7 @@ spec:
                     replacePrefixMatch: ""
       sync-server:
         hostnames:
-          - sync.kompa.ss
+          - sync.kompass.cura.nz
         parentRefs:
           - name: gateway
             namespace: networking

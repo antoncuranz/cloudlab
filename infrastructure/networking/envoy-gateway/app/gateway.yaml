@@ -33,7 +33,7 @@ spec:
           - kind: Secret
             name: wildcard-curanz-tls
     - name: kompass
-      hostname: kompa.ss
+      hostname: kompass.cura.nz
       protocol: HTTPS
       port: 443
       allowedRoutes:
@@ -44,7 +44,7 @@ spec:
           - kind: Secret
             name: kompass-tls
     - name: kompass-wildcard
-      hostname: "*.kompa.ss"
+      hostname: "*.kompass.cura.nz"
       protocol: HTTPS
       port: 443
       allowedRoutes:

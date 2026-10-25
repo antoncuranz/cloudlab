@@ -16,6 +16,7 @@ spec:
       version: 1.23.0
   values:
     provider: cloudflare
+    policy: sync
     txtOwnerId: cloudlab
     env:
       - name: CF_API_TOKEN

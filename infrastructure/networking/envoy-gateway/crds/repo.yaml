@@ -7,5 +7,5 @@ metadata:
 spec:
   interval: 1h
   ref:
-    tag: v1.9.2
+    tag: v1.9.3
   url: https://github.com/envoyproxy/gateway

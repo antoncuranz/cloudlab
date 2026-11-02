@@ -27,7 +27,7 @@ machine:
 
   install:
     disk: /dev/vda
-    image: ghcr.io/siderolabs/installer:v1.13.12
+    image: factory.talos.dev/metal-installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba:v1.14.5
     wipe: false
 
   registries: { }

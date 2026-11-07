@@ -17,3 +17,8 @@ spec:
   values:
     controller:
       replicaCount: 1
+      image:
+        tag: v8.7.0
+      extraArgs:
+        # Keep group snapshots disabled with the existing v1beta1 group CRDs.
+        - --feature-gates=CSIVolumeGroupSnapshot=false

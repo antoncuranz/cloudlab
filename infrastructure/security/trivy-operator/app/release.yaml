@@ -22,9 +22,11 @@ spec:
     targetNamespaces: ""
     excludeNamespaces: kube-system,trivy-system
     operator:
-      scanJobTTL: 30m
+      # Let the operator delete finished jobs immediately to release their DB cache.
+      scanJobTTL: ""
       scanJobTimeout: 10m
-      scanJobsConcurrentLimit: 3
+      # Each standalone scan downloads and unpacks its own vulnerability DB.
+      scanJobsConcurrentLimit: 1
       scanNodeCollectorLimit: 1
       scannerReportTTL: 24h
       vulnerabilityScannerEnabled: true
@@ -42,9 +44,11 @@ spec:
         requests:
           cpu: 100m
           memory: 256Mi
+          ephemeralStorage: 2Gi
         limits:
           cpu: 500m
           memory: 1Gi
+          ephemeralStorage: 4Gi
     nodeCollector:
       # Replace the conventional Linux mounts with the Talos guide's mount.
       volumeMounts:

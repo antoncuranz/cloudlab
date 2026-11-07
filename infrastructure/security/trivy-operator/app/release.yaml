@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: trivy-operator
+  namespace: trivy-system
+spec:
+  interval: 1h
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  chart:
+    spec:
+      chart: trivy-operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: aqua
+      version: 0.38.1
+  values:
+    targetNamespaces: ""
+    excludeNamespaces: kube-system,trivy-system
+    operator:
+      scanJobTTL: 30m
+      scanJobTimeout: 10m
+      scanJobsConcurrentLimit: 3
+      scanNodeCollectorLimit: 1
+      scannerReportTTL: 24h
+      vulnerabilityScannerEnabled: true
+      configAuditScannerEnabled: true
+      rbacAssessmentScannerEnabled: true
+      exposedSecretScannerEnabled: true
+      infraAssessmentScannerEnabled: true
+      clusterComplianceEnabled: true
+      metricsFindingsEnabled: true
+    trivy:
+      ignoreUnfixed: true
+      severity: CRITICAL,HIGH,MEDIUM
+      mode: Standalone
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 1Gi
+    nodeCollector:
+      # Replace the conventional Linux mounts with the Talos guide's mount.
+      volumeMounts:
+        - name: etc-os-release
+          mountPath: /host/etc/os-release
+          readOnly: true
+      volumes:
+        - name: etc-os-release
+          hostPath:
+            path: /etc/os-release
+            type: File
+    serviceMonitor:
+      enabled: true
+      interval: 60s

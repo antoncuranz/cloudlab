@@ -36,6 +36,14 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: trivy-system
+  labels:
+    # Node collector jobs use hostPID and a read-only hostPath mount.
+    pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: storage
   labels:
     pod-security.kubernetes.io/enforce: privileged

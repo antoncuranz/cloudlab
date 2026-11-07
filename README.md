@@ -11,6 +11,7 @@ infrastructure/
   monitoring/
   networking/
   secrets/
+  security/
   storage/
 clusters/
   local/
@@ -31,6 +32,26 @@ clusters/
 - Local external-secrets uses the fake provider-backed `ClusterSecretStore` from `infrastructure/secrets/external-secrets/env-local`.
 - Production external-secrets uses the 1Password-backed `ClusterSecretStore` from `infrastructure/secrets/external-secrets/env-prod`.
 - Production app volsync behavior lives in app-owned `prod.yaml` manifests.
+
+## Vulnerability scanning
+
+Both environments deploy Trivy Operator from `infrastructure/security/trivy-operator` after Prometheus is ready. It scans workloads outside `kube-system` and `trivy-system`, reporting fixable medium, high, and critical vulnerabilities, configuration findings, RBAC findings, and exposed secrets. Reports expire after 24 hours to trigger rescanning; at most three scan jobs run concurrently.
+
+Prometheus scrapes Trivy every 60 seconds. Alerts fire for critical findings lasting five minutes or more than 50 high-severity findings across workloads lasting one hour. Alertmanager is disabled, so these alerts are visible in Prometheus without external notifications.
+
+Infrastructure and compliance scans are enabled. The node collector follows the Talos guide, replacing conventional Linux host mounts with a read-only `/etc/os-release` mount at `/host/etc/os-release`. One collector job runs at a time. The `trivy-system` namespace permits host PID access and host mounts through its privileged Pod Security enforcement label; collector containers retain the chart's restricted security context. This minimal mount configuration does not expose host Kubernetes configuration files, so file-based compliance checks have limited coverage.
+
+After Flux reconciles the changes, verify the deployment and inspect reports:
+
+```bash
+flux get kustomization trivy-operator -n trivy-system
+flux get helmrelease trivy-operator -n trivy-system
+kubectl get vulnerabilityreports -A
+kubectl get configauditreports -A
+kubectl get clusterinfraassessmentreports
+kubectl get clustercompliancereports
+kubectl get servicemonitor,prometheusrule -n trivy-system
+```
 
 ## Bootstrap
 

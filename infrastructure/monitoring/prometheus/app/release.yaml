@@ -23,6 +23,10 @@ spec:
       enabled: true
     nodeExporter:
       enabled: true
+    prometheus-node-exporter:
+      image:
+        tag: v1.12.1
+        distroless: true
     alertmanager:
       enabled: false
     grafana:

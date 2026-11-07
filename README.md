@@ -39,7 +39,7 @@ Both environments deploy Trivy Operator from `infrastructure/security/trivy-oper
 
 Prometheus scrapes Trivy every 60 seconds. Alerts fire for critical findings lasting five minutes or more than 50 high-severity findings across workloads lasting one hour. Alertmanager is disabled, so these alerts are visible in Prometheus without external notifications.
 
-Infrastructure and compliance scans are enabled. The node collector follows the Talos guide, replacing conventional Linux host mounts with a read-only `/etc/os-release` mount at `/host/etc/os-release`. One collector job runs at a time, with tolerations for control-plane nodes. The `trivy-system` namespace permits host PID access and host mounts through its privileged Pod Security enforcement label; collector containers retain the chart's restricted security context. This minimal mount configuration does not expose host Kubernetes configuration files, so file-based compliance checks have limited coverage.
+Infrastructure and compliance scans are enabled. The node collector follows the Talos guide, replacing conventional Linux host mounts with a read-only `/etc/os-release` mount at `/host/etc/os-release`. One collector job runs at a time. The `trivy-system` namespace permits host PID access and host mounts through its privileged Pod Security enforcement label; collector containers retain the chart's restricted security context. This minimal mount configuration does not expose host Kubernetes configuration files, so file-based compliance checks have limited coverage.
 
 After Flux reconciles the changes, verify the deployment and inspect reports:
 

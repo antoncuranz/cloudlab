@@ -56,13 +56,6 @@ spec:
           hostPath:
             path: /etc/os-release
             type: File
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
-          effect: NoSchedule
-        - key: node-role.kubernetes.io/master
-          operator: Exists
-          effect: NoSchedule
     serviceMonitor:
       enabled: true
       interval: 60s

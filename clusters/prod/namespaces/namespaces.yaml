@@ -36,6 +36,11 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: trivy-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: storage
   labels:
     pod-security.kubernetes.io/enforce: privileged

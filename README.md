@@ -11,6 +11,7 @@ infrastructure/
   monitoring/
   networking/
   secrets/
+  security/
   storage/
 clusters/
   local/
@@ -31,6 +32,22 @@ clusters/
 - Local external-secrets uses the fake provider-backed `ClusterSecretStore` from `infrastructure/secrets/external-secrets/env-local`.
 - Production external-secrets uses the 1Password-backed `ClusterSecretStore` from `infrastructure/secrets/external-secrets/env-prod`.
 - Production app volsync behavior lives in app-owned `prod.yaml` manifests.
+
+## Vulnerability scanning
+
+Both environments deploy Trivy Operator from `infrastructure/security/trivy-operator` after Prometheus is ready. It scans workloads outside `kube-system` and `trivy-system`, reporting fixable medium, high, and critical vulnerabilities, configuration findings, RBAC findings, and exposed secrets. Reports expire after 24 hours to trigger rescanning; at most three scan jobs run concurrently.
+
+Prometheus scrapes Trivy every 60 seconds. Alerts fire for critical findings lasting five minutes or more than 50 high-severity findings across workloads lasting one hour. Alertmanager is disabled, so these alerts are visible in Prometheus without external notifications. Host infrastructure and compliance scans are disabled until the node collector's host mounts are validated for Talos.
+
+After Flux reconciles the changes, verify the deployment and inspect reports:
+
+```bash
+flux get kustomization trivy-operator -n trivy-system
+flux get helmrelease trivy-operator -n trivy-system
+kubectl get vulnerabilityreports -A
+kubectl get configauditreports -A
+kubectl get servicemonitor,prometheusrule -n trivy-system
+```
 
 ## Bootstrap
 

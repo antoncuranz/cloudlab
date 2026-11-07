@@ -1,0 +1,31 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: trivy-vulnerabilities
+  namespace: trivy-system
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: trivy.vulnerabilities
+      rules:
+        - alert: CriticalVulnerabilityFound
+          expr: trivy_image_vulnerabilities{severity="Critical"} > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: 'Critical vulnerability detected in {{ $labels.image_repository }}'
+            description: >-
+              Image {{ $labels.image_repository }}:{{ $labels.image_tag }} in
+              {{ $labels.namespace }}/{{ $labels.resource_name }}
+              ({{ $labels.container_name }}) has {{ $value }} fixable critical vulnerabilities.
+        - alert: HighVulnerabilityCount
+          expr: sum(trivy_image_vulnerabilities{severity="High"}) > 50
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: High number of high-severity vulnerabilities across the cluster
+            description: 'Total fixable high-severity vulnerability findings across workloads: {{ $value }}'

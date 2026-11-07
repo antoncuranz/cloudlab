@@ -87,7 +87,7 @@ spec:
         image:
           registry: docker.io/busybox
           # renovate: datasource=docker depName=docker.io/busybox
-          tag: 1.37.0
+          tag: 1.38.0
       driver:
         image:
           registry: ghcr.io/democratic-csi/democratic-csi

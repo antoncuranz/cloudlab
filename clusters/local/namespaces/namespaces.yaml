@@ -12,11 +12,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: database
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: monitoring
   labels:
     pod-security.kubernetes.io/enforce: privileged

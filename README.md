@@ -7,7 +7,6 @@ apps/
   baikal/
   kompass/
 infrastructure/
-  database/
   monitoring/
   networking/
   secrets/

@@ -15,6 +15,21 @@
         "minor"
       ],
       "automerge": false
+    },
+    {
+      "matchFileNames": [
+        "infrastructure/storage/democratic-csi/app/release.yaml"
+      ],
+      "groupName": "democratic-csi images",
+      "automerge": false
+    },
+    {
+      "matchPackageNames": [
+        "external-secrets",
+        "external-secrets-crds"
+      ],
+      "groupName": "external-secrets operator and CRDs",
+      "automerge": false
     }
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
@@ -34,5 +49,17 @@
     "managerFilePatterns": [
       "/\\.yaml(?:\\.j2)?$/"
     ]
-  }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/infrastructure/storage/democratic-csi/app/release\\.yaml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+tag: (?<currentValue>\\S+)"
+      ],
+      "versioningTemplate": "docker"
+    }
+  ]
 }

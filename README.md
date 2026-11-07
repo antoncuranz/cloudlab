@@ -7,7 +7,6 @@ apps/
   baikal/
   kompass/
 infrastructure/
-  database/
   monitoring/
   networking/
   secrets/
@@ -36,6 +35,8 @@ clusters/
 ## Infrastructure maintenance
 
 The democratic-csi chart is pinned separately from its driver and sidecar images. Explicit image versions are tracked by the annotated-tag Renovate custom manager because this chart uses `image.registry` for the complete image repository, rather than the `image.repository` layout detected by Renovate's Helm values manager. Storage image updates require review. External Secrets operator and CRD updates are grouped to keep their versions aligned.
+
+The unused PostgreSQL cluster, CloudNativePG CRDs/operator, and external Postgres operator have been removed from both environments. Kompass's db-vendo service is unrelated and remains deployed. Existing database volumes use the `Retain` reclaim policy: removing the database namespace deletes its PVC, but retains the underlying PV/data. Reverting the removal restores manifests; recovering the old database additionally requires reattaching its retained volume before starting PostgreSQL.
 
 ## Vulnerability scanning
 

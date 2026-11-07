@@ -14,9 +14,6 @@ resources:
   - ../../../infrastructure/storage/democratic-csi/app.yaml
   - ../../../infrastructure/storage/snapshot-controller/app.yaml
   - ../../../infrastructure/storage/volsync/app.yaml
-  - ../../../infrastructure/database/cloudnative-pg/crds
-  - ../../../infrastructure/database/cloudnative-pg/app.yaml
-  - ../../../infrastructure/database/ext-postgres-operator/app.yaml
   - ../../../infrastructure/monitoring/routes/app.yaml
   - ../../../infrastructure/monitoring/prometheus/app.yaml
   - ../../../infrastructure/security/trivy-operator/app.yaml

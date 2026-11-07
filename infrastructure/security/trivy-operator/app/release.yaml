@@ -25,15 +25,14 @@ spec:
       scanJobTTL: 30m
       scanJobTimeout: 10m
       scanJobsConcurrentLimit: 3
+      scanNodeCollectorLimit: 1
       scannerReportTTL: 24h
       vulnerabilityScannerEnabled: true
       configAuditScannerEnabled: true
       rbacAssessmentScannerEnabled: true
       exposedSecretScannerEnabled: true
-      # The default node collector assumes conventional Linux host paths.
-      # Validate Talos-specific mounts before enabling host assessments.
-      infraAssessmentScannerEnabled: false
-      clusterComplianceEnabled: false
+      infraAssessmentScannerEnabled: true
+      clusterComplianceEnabled: true
       metricsFindingsEnabled: true
     trivy:
       ignoreUnfixed: true
@@ -46,6 +45,24 @@ spec:
         limits:
           cpu: 500m
           memory: 1Gi
+    nodeCollector:
+      # Replace the conventional Linux mounts with the Talos guide's mount.
+      volumeMounts:
+        - name: etc-os-release
+          mountPath: /host/etc/os-release
+          readOnly: true
+      volumes:
+        - name: etc-os-release
+          hostPath:
+            path: /etc/os-release
+            type: File
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
     serviceMonitor:
       enabled: true
       interval: 60s

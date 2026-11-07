@@ -27,6 +27,11 @@ spec:
         reclaimPolicy: Retain
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: false
+      - name: local-hostpath-ephemeral
+        defaultClass: false
+        reclaimPolicy: Delete
+        volumeBindingMode: WaitForFirstConsumer
+        allowVolumeExpansion: false
 
     volumeSnapshotClasses:
       - name: local-hostpath

@@ -10,6 +10,7 @@ spec:
   restic:
     repository: ${APP}-volsync-secret
     copyMethod: Snapshot
+    storageClassName: ${VOLSYNC_SNAP_STORAGECLASS:=local-hostpath-ephemeral}
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
     pruneIntervalDays: 14

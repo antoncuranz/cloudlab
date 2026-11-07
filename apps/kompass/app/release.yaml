@@ -12,10 +12,6 @@ spec:
     controllers:
       app:
         strategy: RollingUpdate
-        pod:
-          annotations:
-            # Pull the patched latest image after the Kompass build completes.
-            cloudlab.cura.nz/security-rebuild: "2026-11-07"
 
         containers:
           main:

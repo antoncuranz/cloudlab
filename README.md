@@ -33,6 +33,10 @@ clusters/
 - Production external-secrets uses the 1Password-backed `ClusterSecretStore` from `infrastructure/secrets/external-secrets/env-prod`.
 - Production app volsync behavior lives in app-owned `prod.yaml` manifests.
 
+## Infrastructure maintenance
+
+The democratic-csi chart is pinned separately from its driver and sidecar images. Explicit image versions are tracked by the annotated-tag Renovate custom manager because this chart uses `image.registry` for the complete image repository, rather than the `image.repository` layout detected by Renovate's Helm values manager. Storage image updates require review. External Secrets operator and CRD updates are grouped to keep their versions aligned.
+
 ## Vulnerability scanning
 
 Both environments deploy Trivy Operator from `infrastructure/security/trivy-operator` after Prometheus is ready. It scans workloads outside `kube-system` and `trivy-system`, reporting fixable medium, high, and critical vulnerabilities, configuration findings, RBAC findings, and exposed secrets. Reports expire after 24 hours to trigger rescanning; one scan job runs at a time to limit concurrent database downloads on the node. Scan containers request 2 GiB of temporary storage and have a 4 GiB limit. Finished scan jobs are removed immediately so their database caches do not accumulate.

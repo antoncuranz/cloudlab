@@ -35,7 +35,7 @@ clusters/
 
 ## Vulnerability scanning
 
-Both environments deploy Trivy Operator from `infrastructure/security/trivy-operator` after Prometheus is ready. It scans workloads outside `kube-system` and `trivy-system`, reporting fixable medium, high, and critical vulnerabilities, configuration findings, RBAC findings, and exposed secrets. Reports expire after 24 hours to trigger rescanning; one scan job runs at a time to limit concurrent database downloads on the node. Scan containers request 2 GiB of temporary storage and have a 4 GiB limit. Finished scan jobs are removed immediately so their database caches do not accumulate.
+Both environments deploy Trivy Operator from `infrastructure/security/trivy-operator` after Prometheus is ready. It scans workloads outside `kube-system` and `trivy-system`, reporting fixable medium, high, and critical vulnerabilities, configuration findings, RBAC findings, and exposed secrets. Reports expire after 24 hours to trigger rescanning; one scan job runs at a time to limit concurrent database downloads on the node. Scan containers request 2 GiB of temporary storage and have a 4 GiB limit. Finished scan jobs are removed immediately so their database caches do not accumulate. Each scan container uses an in-memory analysis cache to avoid file-lock contention between containers in the same job; vulnerability databases remain on disk.
 
 Prometheus scrapes Trivy every 60 seconds. Alerts fire for critical findings lasting five minutes or more than 50 high-severity findings across workloads lasting one hour. Alertmanager is disabled, so these alerts are visible in Prometheus without external notifications.
 

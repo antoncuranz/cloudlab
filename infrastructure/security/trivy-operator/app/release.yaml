@@ -40,6 +40,11 @@ spec:
       ignoreUnfixed: true
       severity: CRITICAL,HIGH,MEDIUM
       mode: Standalone
+      configFile:
+        cache:
+          # Scan containers in a workload job run concurrently and share /tmp.
+          # Use a process-local scan cache to avoid BoltDB file-lock contention.
+          backend: memory
       resources:
         requests:
           cpu: 100m
